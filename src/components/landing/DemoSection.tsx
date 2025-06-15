@@ -75,7 +75,7 @@ export default function DemoSection() {
             <div className="ml-9">
               <div className="relative w-full aspect-[3/2] rounded-md overflow-hidden border border-border shadow-sm mb-2">
                 <Image
-                  src="https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-c7b4-61f7-bdd6-1e434ee2f36a/raw?se=2025-06-15T18%3A22%3A28Z&sp=r&sv=2024-08-04&sr=b&scid=db8f6eb1-43c7-558f-bfb6-ea810df36285&skoid=9ccea605-1409-4478-82eb-9c83b25dc1b0&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-06-15T01%3A17%3A27Z&ske=2025-06-16T01%3A17%3A27Z&sks=b&skv=2024-08-04&sig=27FB3XtZMJgGypAJ8uMBUOPOmoB3%2B4eTWQuPXl7rWME%3D"
+                  src="https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-15d8-61f7-8662-7e2f3244595d/raw?se=2025-06-15T18%3A25%3A01Z&sp=r&sv=2024-08-04&sr=b&scid=f16e26b8-b99c-52f4-bc55-39deeea6aba6&skoid=9ccea605-1409-4478-82eb-9c83b25dc1b0&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-06-15T12%3A28%3A21Z&ske=2025-06-16T12%3A28%3A21Z&sks=b&skv=2024-08-04&sig=icokwOwP1HVD8qmyjJV1FV6Fm4oIJLpCEnvQdeXo9NY%3D"
                   alt="Sample Vision Flow Infographic of a Python learning plan"
                   layout="fill"
                   objectFit="cover"
