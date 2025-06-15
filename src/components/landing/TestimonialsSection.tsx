@@ -39,6 +39,14 @@ const testimonialsData: Testimonial[] = [
     review: "As a freelancer, structuring my long-term goals felt overwhelming. Vision Flow helped me break it down into manageable steps. Love the simplicity.",
     rating: 4,
   },
+  {
+    name: "David L.",
+    role: "Fitness Enthusiast",
+    avatarSrc: "https://placehold.co/100x100.png",
+    avatarHint: "active athlete",
+    review: "The daily action plan is super effective. I've been more consistent with my workouts than ever before. The visual infographic is a great motivator!",
+    rating: 5,
+  },
 ];
 
 const StarRating = ({ rating }: { rating: number }) => {
