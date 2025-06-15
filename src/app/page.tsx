@@ -40,9 +40,9 @@ export default function HomePage() {
 
   async function onSubmit(values: GoalFormValues) {
     setIsLoadingTextPlan(true);
-    setIsGeneratingInfographic(false);
-    setPlan(null);
-    setGeneratedInfographicUrl(null);
+    setIsGeneratingInfographic(false); // Reset infographic loading state
+    setPlan(null); // Clear previous plan
+    setGeneratedInfographicUrl(null); // Clear previous image
 
     try {
       const textResult = await generateLifePlan({ goal: values.goal });
@@ -54,6 +54,7 @@ export default function HomePage() {
       setPlan(textResult);
       setIsLoadingTextPlan(false); 
 
+      // Start generating infographic if prompt is available
       if (textResult.infographicPrompt) {
         setIsGeneratingInfographic(true);
         try {
@@ -61,6 +62,7 @@ export default function HomePage() {
           if (imageResult && imageResult.imageUrl) {
             setGeneratedInfographicUrl(imageResult.imageUrl);
           } else {
+             // No error, but no image. Notify user, but don't use destructive variant.
             toast({
               title: "Infographic Generation Issue",
               description: "Could not generate the infographic image, but your text plan is ready.",
@@ -72,7 +74,7 @@ export default function HomePage() {
           toast({
             title: "Infographic Generation Failed",
             description: imgError instanceof Error ? imgError.message : "An unexpected error occurred while generating the infographic.",
-            variant: "default",
+            variant: "default", // Keep this non-destructive as the main plan is still useful
           });
         } finally {
           setIsGeneratingInfographic(false);
@@ -94,6 +96,7 @@ export default function HomePage() {
   function handleCopyPlan() {
     if (!plan) return;
 
+    // Updated to reflect new LifePlan structure
     const planText = `
 📌 Vision Statement for ${plan.timeframeUsed}:
 ${plan.visionStatement}
@@ -136,66 +139,67 @@ ${plan.infographicPrompt}
   }
 
   function handleStartOver() {
-    form.reset({ goal: '' });
+    // form.reset({ goal: '' }); // Keep goal input if user wants to tweak
     setPlan(null);
     setGeneratedInfographicUrl(null);
     setIsLoadingTextPlan(false);
     setIsGeneratingInfographic(false);
   }
 
+  const showLoadingIndicator = isLoadingTextPlan || (!plan && isGeneratingInfographic);
+
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8 sm:py-12 flex flex-col items-center">
         
-        {!plan && (
-          <>
-            <section className="w-full max-w-3xl text-center mb-10 sm:mb-16 animate-in fade-in-0 slide-in-from-top-10 duration-700">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-headline font-bold mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-foreground/80 dark:to-accent">
-                Vision Flow
-              </h1>
-              <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground mb-8 sm:mb-10">
-                Transform your goals into actionable AI-powered life plans and visual infographics. <br className="hidden sm:block" />
-                Start with one line, achieve with a clear vision.
-              </p>
-              <div className="max-w-2xl mx-auto">
-                <GoalInputForm form={form} onSubmit={onSubmit} isLoading={isLoadingTextPlan || isGeneratingInfographic} />
-              </div>
-            </section>
+        <section className="w-full max-w-3xl text-center mb-10 sm:mb-12 animate-in fade-in-0 slide-in-from-top-10 duration-700">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-headline font-bold mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-foreground/80 dark:to-accent">
+            Vision Flow
+          </h1>
+          <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground mb-8 sm:mb-10">
+            Transform your goals into actionable AI-powered life plans and visual infographics. <br className="hidden sm:block" />
+            Start with one line, achieve with a clear vision.
+          </p>
+          <div className="max-w-2xl mx-auto">
+            <GoalInputForm form={form} onSubmit={onSubmit} isLoading={isLoadingTextPlan || isGeneratingInfographic} />
+          </div>
+        </section>
 
-            <div className="w-full space-y-12 sm:space-y-16 animate-in fade-in-0 delay-300 duration-700">
-              <DemoSection />
-              <Separator className="my-12 sm:my-16" />
-              <HowItWorksSection />
-              <Separator className="my-12 sm:my-16" />
-              <FeaturesSection />
-              <Separator className="my-12 sm:my-16" />
-              <TestimonialsSection />
-              <Separator className="my-12 sm:my-16" />
-              <FaqSection />
-            </div>
-          </>
-        )}
-
-        {(isLoadingTextPlan || (!plan && isGeneratingInfographic)) && (
-          <div className="flex flex-col items-center justify-center space-y-3 mt-8 text-center animate-in fade-in duration-300">
-            <Loader2 className="h-10 w-10 animate-spin text-primary" />
-            <p className="text-lg text-muted-foreground">
+        {showLoadingIndicator && (
+          <div className="flex flex-col items-center justify-center space-y-4 mt-8 text-center animate-in fade-in duration-300">
+            <Loader2 className="h-12 w-12 sm:h-16 sm:w-16 animate-spin text-primary" />
+            <p className="text-lg sm:text-xl text-muted-foreground">
               {isLoadingTextPlan ? "Crafting your personalized life plan..." : "Generating your infographic..."}
-              This might take a moment.
+              <br className="sm:hidden"/> This might take a moment.
             </p>
           </div>
         )}
 
-        {plan && !isLoadingTextPlan && (
+        {!showLoadingIndicator && plan && (
           <PlanDisplay
             plan={plan}
             onCopy={handleCopyPlan}
             onStartOver={handleStartOver}
             generatedInfographicUrl={generatedInfographicUrl}
-            isGeneratingInfographic={isGeneratingInfographic}
+            isGeneratingInfographic={isGeneratingInfographic} // Pass this for loader within PlanDisplay
           />
         )}
+        
+        {!plan && !showLoadingIndicator && (
+          <div className="w-full space-y-12 sm:space-y-16 animate-in fade-in-0 delay-300 duration-700 mt-8">
+            <DemoSection />
+            <Separator className="my-12 sm:my-16" />
+            <HowItWorksSection />
+            <Separator className="my-12 sm:my-16" />
+            <FeaturesSection />
+            <Separator className="my-12 sm:my-16" />
+            <TestimonialsSection />
+            <Separator className="my-12 sm:my-16" />
+            <FaqSection />
+          </div>
+        )}
+
       </main>
       <Footer />
     </div>

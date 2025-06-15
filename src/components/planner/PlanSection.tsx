@@ -25,7 +25,14 @@ export default function PlanSection({ title, icon: Icon, content, iconClassName 
           <ul className="space-y-2">
             {content.map((item, index) => (
               <li key={index} className="flex items-start">
-                <span className={`mr-3 mt-1.5 shrink-0 h-2 w-2 rounded-full ${iconClassName?.replace('text-','bg-') || 'bg-primary'}`} aria-hidden="true"></span>
+                <span 
+                  className={`mr-3 mt-1.5 shrink-0 h-2 w-2 rounded-full ${
+                    iconClassName?.includes('text-destructive') ? 'bg-destructive' : 
+                    iconClassName?.includes('text-accent') ? 'bg-accent' : 
+                    iconClassName?.includes('opacity-70') ? 'bg-primary/70' : // for infographic prompt icon
+                    'bg-primary' 
+                  }`} 
+                  aria-hidden="true"></span>
                 <span>{item}</span>
               </li>
             ))}
