@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useToast } from "@/hooks/use-toast";
-import { Loader2 } from 'lucide-react';
 
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -18,6 +17,7 @@ import DemoSection from '@/components/landing/DemoSection';
 import HowItWorksSection from '@/components/landing/HowItWorksSection';
 import TestimonialsSection from '@/components/landing/TestimonialsSection';
 import FaqSection from '@/components/landing/FaqSection';
+import LoadingModal from '@/components/layout/LoadingModal'; // Import the new modal
 import { Separator } from '@/components/ui/separator';
 
 import { generateLifePlan } from '@/ai/flows/life-plan-generation';
@@ -41,7 +41,7 @@ export default function HomePage() {
 
   async function onSubmit(values: GoalFormValues) {
     setIsLoadingTextPlan(true);
-    setIsGeneratingInfographic(false);
+    setIsGeneratingInfographic(false); // Reset infographic loading state specifically
     setPlan(null);
     setGeneratedInfographicUrl(null);
 
@@ -53,10 +53,11 @@ export default function HomePage() {
       }
       
       setPlan(textResult);
-      setIsLoadingTextPlan(false);
+      setIsLoadingTextPlan(false); // Text plan loading finished
 
+      // Start infographic generation if prompt is available
       if (textResult.infographicPrompt) {
-        setIsGeneratingInfographic(true);
+        setIsGeneratingInfographic(true); // Now set infographic loading to true
         try {
           const imageResult = await generateImage({ prompt: textResult.infographicPrompt });
           if (imageResult && imageResult.imageUrl) {
@@ -76,7 +77,7 @@ export default function HomePage() {
             variant: "default",
           });
         } finally {
-          setIsGeneratingInfographic(false);
+          setIsGeneratingInfographic(false); // Infographic generation finished (success or fail)
         }
       }
 
@@ -88,7 +89,7 @@ export default function HomePage() {
         variant: "destructive",
       });
       setIsLoadingTextPlan(false);
-      setIsGeneratingInfographic(false);
+      setIsGeneratingInfographic(false); // Ensure all loading states are false on error
     }
   }
 
@@ -141,10 +142,11 @@ ${plan.infographicPrompt}
     setGeneratedInfographicUrl(null);
     setIsLoadingTextPlan(false);
     setIsGeneratingInfographic(false);
-    form.reset(); // Reset the form fields
+    form.reset(); 
   }
 
-  const showLoadingIndicator = isLoadingTextPlan || (!plan && isGeneratingInfographic && !isLoadingTextPlan);
+  // Combined loading state for the modal
+  const showLoadingIndicator = isLoadingTextPlan || isGeneratingInfographic;
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
@@ -164,15 +166,15 @@ ${plan.infographicPrompt}
           </div>
         </section>
 
-        {showLoadingIndicator && (
-          <div className="flex flex-col items-center justify-center space-y-4 mt-8 text-center animate-in fade-in duration-300">
-            <Loader2 className="h-16 w-16 sm:h-20 sm:w-20 animate-spin text-primary" />
-            <p className="text-lg sm:text-xl text-muted-foreground">
-              {isLoadingTextPlan ? "Crafting your personalized life plan..." : "Generating your infographic..."}
-              <br className="sm:hidden"/> This might take a moment.
-            </p>
-          </div>
-        )}
+        <LoadingModal
+          isOpen={showLoadingIndicator}
+          title={isLoadingTextPlan ? "Crafting Your Plan..." : "Generating Infographic..."}
+          description={
+            isLoadingTextPlan 
+              ? "Our AI is working on your personalized life plan. This might take a moment." 
+              : "Your visual infographic is being created. This could take a few extra seconds."
+          }
+        />
 
         {!showLoadingIndicator && plan && (
           <PlanDisplay
@@ -180,29 +182,27 @@ ${plan.infographicPrompt}
             onCopy={handleCopyPlan}
             onStartOver={handleStartOver}
             generatedInfographicUrl={generatedInfographicUrl}
-            isGeneratingInfographic={isGeneratingInfographic && !isLoadingTextPlan} 
+            isGeneratingInfographic={false} // Modal handles infographic loading display now
           />
         )}
         
-        {!showLoadingIndicator && (
-          <div className="w-full space-y-12 sm:space-y-16 animate-in fade-in-0 delay-300 duration-700 mt-8">
-            <DemoSection />
-            <Separator className="my-12 sm:my-16" />
-            <AboutSection />
-            <Separator className="my-12 sm:my-16" />
-            <HowItWorksSection />
-            <Separator className="my-12 sm:my-16" />
-            <FeaturesSection />
-            <Separator className="my-12 sm:my-16" />
-            <TestimonialsSection />
-            <Separator className="my-12 sm:my-16" />
-            <FaqSection />
-          </div>
-        )}
+        {/* Landing page sections are now always rendered unless a plan is actively being displayed and loaded */}
+        <div className="w-full space-y-12 sm:space-y-16 animate-in fade-in-0 delay-300 duration-700 mt-8">
+          <DemoSection />
+          <Separator className="my-12 sm:my-16" />
+          <AboutSection />
+          <Separator className="my-12 sm:my-16" />
+          <HowItWorksSection />
+          <Separator className="my-12 sm:my-16" />
+          <FeaturesSection />
+          <Separator className="my-12 sm:my-16" />
+          <TestimonialsSection />
+          <Separator className="my-12 sm:my-16" />
+          <FaqSection />
+        </div>
 
       </main>
       <Footer />
     </div>
   );
 }
-
