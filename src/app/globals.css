@@ -42,7 +42,7 @@ body {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.75rem; /* Consistent rounded corners */
+    --radius: 0.5rem; /* Consistent rounded corners - Changed from 0.75rem */
 
     /* Sidebar variables, adjusted for new theme */
     --sidebar-background: 35 60% 96%; /* Consistent with main bg family */
