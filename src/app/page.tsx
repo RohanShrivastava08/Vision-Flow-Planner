@@ -41,9 +41,9 @@ export default function HomePage() {
 
   async function onSubmit(values: GoalFormValues) {
     setIsLoadingTextPlan(true);
-    setIsGeneratingInfographic(false); 
-    setPlan(null); 
-    setGeneratedInfographicUrl(null); 
+    setIsGeneratingInfographic(false);
+    setPlan(null);
+    setGeneratedInfographicUrl(null);
 
     try {
       const textResult = await generateLifePlan({ goal: values.goal });
@@ -53,7 +53,7 @@ export default function HomePage() {
       }
       
       setPlan(textResult);
-      setIsLoadingTextPlan(false); 
+      setIsLoadingTextPlan(false);
 
       if (textResult.infographicPrompt) {
         setIsGeneratingInfographic(true);
@@ -65,7 +65,7 @@ export default function HomePage() {
             toast({
               title: "Infographic Generation Issue",
               description: "Could not generate the infographic image, but your text plan is ready.",
-              variant: "default", 
+              variant: "default",
             });
           }
         } catch (imgError) {
@@ -73,7 +73,7 @@ export default function HomePage() {
           toast({
             title: "Infographic Generation Failed",
             description: imgError instanceof Error ? imgError.message : "An unexpected error occurred while generating the infographic.",
-            variant: "default", 
+            variant: "default",
           });
         } finally {
           setIsGeneratingInfographic(false);
@@ -87,7 +87,7 @@ export default function HomePage() {
         description: error instanceof Error ? error.message : "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
-      setIsLoadingTextPlan(false); 
+      setIsLoadingTextPlan(false);
       setIsGeneratingInfographic(false);
     }
   }
@@ -141,9 +141,10 @@ ${plan.infographicPrompt}
     setGeneratedInfographicUrl(null);
     setIsLoadingTextPlan(false);
     setIsGeneratingInfographic(false);
+    form.reset(); // Reset the form fields
   }
 
-  const showLoadingIndicator = isLoadingTextPlan || (!plan && isGeneratingInfographic);
+  const showLoadingIndicator = isLoadingTextPlan || (!plan && isGeneratingInfographic && !isLoadingTextPlan);
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
@@ -179,11 +180,11 @@ ${plan.infographicPrompt}
             onCopy={handleCopyPlan}
             onStartOver={handleStartOver}
             generatedInfographicUrl={generatedInfographicUrl}
-            isGeneratingInfographic={isGeneratingInfographic} 
+            isGeneratingInfographic={isGeneratingInfographic && !isLoadingTextPlan} 
           />
         )}
         
-        {!plan && !showLoadingIndicator && (
+        {!showLoadingIndicator && (
           <div className="w-full space-y-12 sm:space-y-16 animate-in fade-in-0 delay-300 duration-700 mt-8">
             <DemoSection />
             <Separator className="my-12 sm:my-16" />
@@ -204,3 +205,4 @@ ${plan.infographicPrompt}
     </div>
   );
 }
+
