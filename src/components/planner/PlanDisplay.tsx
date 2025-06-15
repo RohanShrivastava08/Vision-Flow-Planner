@@ -57,20 +57,27 @@ export default function PlanDisplay({ plan, onCopy, onStartOver, generatedInfogr
     if (!planToSaveRef.current) {
       toast({
         title: 'Error Saving Image',
-        description: 'Could not capture the plan content.',
+        description: 'Could not capture the plan content for image export.',
         variant: 'destructive',
       });
       return;
     }
     try {
-      await document.fonts.ready; // Ensure fonts are loaded
+      // Ensure fonts are loaded and stylesheets are processed.
+      // This is crucial for html-to-image to correctly render text.
+      await document.fonts.ready;
+
+      // Determine background color based on theme
+      const isDarkMode = document.documentElement.classList.contains('dark');
+      // Light theme --background: hsl(40, 50%, 97%) -> #f7f5f2
+      // Dark theme --background: hsl(220, 15%, 10%) -> #171b21
+      const bgColor = isDarkMode ? '#171b21' : '#f7f5f2';
 
       const dataUrl = await toPng(planToSaveRef.current, {
-        cacheBust: true,
-        quality: 0.95,
-        // Attempt to get the actual background color from computed styles
-        backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--background').trim() === '220 15% 10%' ? '#1a1a1a' : '#f8f7f2', // Example: dark theme bg or light theme bg
-        // You might need to adjust the HSL values based on your exact globals.css for dark/light
+        cacheBust: true, 
+        quality: 0.95,   
+        pixelRatio: 2,   
+        backgroundColor: bgColor,
       });
       
       const link = document.createElement('a');
@@ -84,11 +91,13 @@ export default function PlanDisplay({ plan, onCopy, onStartOver, generatedInfogr
       });
     } catch (error) {
       console.error('Error saving full plan as PNG:', error);
-      let description = 'An unexpected error occurred.';
-      if (error instanceof Error && error.message.includes('Cannot access rules')) {
-        description = 'Could not access stylesheet rules, possibly due to external fonts. Try again in a moment.';
-      } else if (error instanceof Error) {
-        description = error.message;
+      let description = 'An unexpected error occurred while saving the image.';
+      if (error instanceof Error) {
+        if (error.message.includes('Cannot access rules') || error.message.includes('error loading CSS')) {
+          description = 'Could not fully process styles for image export, possibly due to external fonts or CORS. The image might have rendering issues with custom fonts.';
+        } else {
+          description = error.message;
+        }
       }
       toast({
         title: 'Error Saving Image',
@@ -100,8 +109,7 @@ export default function PlanDisplay({ plan, onCopy, onStartOver, generatedInfogr
 
 
   return (
-    <div ref={planToSaveRef} className="w-full max-w-3xl space-y-6 sm:space-y-8 mt-8 animate-in fade-in-0 slide-in-from-bottom-10 duration-500 p-2 bg-background"> {/* Added padding and bg for capture */}
-      {/* Textual Plan Sections */}
+    <div ref={planToSaveRef} className="w-full max-w-3xl space-y-6 sm:space-y-8 mt-8 animate-in fade-in-0 slide-in-from-bottom-10 duration-500 p-4 bg-background">
       <PlanSection
         title={`📌 Vision Statement for ${plan.timeframeUsed}`}
         icon={Target}
@@ -147,7 +155,6 @@ export default function PlanDisplay({ plan, onCopy, onStartOver, generatedInfogr
         iconClassName="text-primary"
       />
 
-      {/* AI Generated Infographic Section */}
       <Card className="w-full shadow-lg bg-card border-border transition-all duration-300 hover:shadow-xl relative">
         <CardHeader className="flex flex-row items-center justify-between space-x-4 pb-3 pt-5 px-5">
           <div className="flex items-center space-x-4">
@@ -159,7 +166,7 @@ export default function PlanDisplay({ plan, onCopy, onStartOver, generatedInfogr
               variant="outline"
               size="icon"
               onClick={handleDownloadGeneratedImage}
-              className="absolute top-3 right-3 h-8 w-8 border-primary/30 hover:bg-primary/10"
+              className="h-9 w-9 border-primary/30 hover:bg-primary/10"
               aria-label="Download AI Infographic"
             >
               <DownloadCloud className="h-4 w-4 text-primary" />
@@ -194,7 +201,6 @@ export default function PlanDisplay({ plan, onCopy, onStartOver, generatedInfogr
           iconClassName="text-primary opacity-70" 
         />
 
-      {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-4 pt-4">
         <Button onClick={onCopy} className="flex-1 text-base py-3 shadow-md hover:shadow-lg transition-shadow">
           <Copy className="mr-2 h-5 w-5" />
