@@ -10,7 +10,7 @@ export default function Header() {
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2 text-xl sm:text-2xl font-headline font-bold text-primary hover:opacity-80 transition-opacity">
           <Lightbulb className="h-6 w-6 sm:h-7 sm:w-7" />
-          One-Liner Life Planner
+          Vision Flow
         </Link>
         <ThemeToggle />
       </div>

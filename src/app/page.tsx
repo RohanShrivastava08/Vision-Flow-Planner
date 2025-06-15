@@ -46,9 +46,8 @@ export default function HomePage() {
       }
       
       setPlan(textResult);
-      setIsLoadingTextPlan(false); // Text plan is loaded
+      setIsLoadingTextPlan(false); 
 
-      // Now, generate the infographic
       if (textResult.infographicPrompt) {
         setIsGeneratingInfographic(true);
         try {
@@ -59,7 +58,7 @@ export default function HomePage() {
             toast({
               title: "Infographic Generation Issue",
               description: "Could not generate the infographic image, but your text plan is ready.",
-              variant: "default", // Not a destructive error for the whole process
+              variant: "default", 
             });
           }
         } catch (imgError) {
@@ -81,7 +80,7 @@ export default function HomePage() {
         description: error instanceof Error ? error.message : "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
-      setIsLoadingTextPlan(false); // Ensure loading state is reset on error
+      setIsLoadingTextPlan(false); 
       setIsGeneratingInfographic(false);
     }
   }
@@ -144,10 +143,10 @@ ${plan.infographicPrompt}
       <main className="flex-grow container mx-auto px-4 py-8 sm:py-12 flex flex-col items-center">
         <section className="w-full max-w-2xl text-center mb-10 sm:mb-12">
           <h1 className="text-4xl sm:text-5xl font-headline font-bold mb-3 sm:mb-4 text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-foreground/80 dark:to-accent">
-            One-Liner Life Planner
+            Vision Flow
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8">
-            Turn your one-liner goal into a detailed, AI-powered life plan & visual infographic.
+            Turn your one-liner goal into a detailed, AI-powered life plan & visual infographic with Vision Flow.
           </p>
           <GoalInputForm form={form} onSubmit={onSubmit} isLoading={isLoadingTextPlan || isGeneratingInfographic} />
         </section>

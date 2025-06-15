@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'One-Liner Life Planner',
-  description: 'Turn your one-liner goal into a detailed, AI-powered life plan.',
+  title: 'Vision Flow',
+  description: 'Turn your one-liner goal into a detailed, AI-powered life plan and visual infographic with Vision Flow.',
 };
 
 export default function RootLayout({
