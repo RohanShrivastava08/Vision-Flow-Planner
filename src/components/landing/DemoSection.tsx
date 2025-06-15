@@ -2,7 +2,8 @@
 'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Lightbulb, Target, ListChecks, Sparkles } from "lucide-react";
+import { Lightbulb, Target, ListChecks, Sparkles, BarChart3 } from "lucide-react";
+import Image from 'next/image';
 
 export default function DemoSection() {
   const demoGoal = "Master the basics of Python programming in 90 days.";
@@ -65,8 +66,29 @@ export default function DemoSection() {
             <p className="text-card-foreground/90 ml-9 italic">{demoAffirmation}</p>
           </div>
 
-          <CardDescription className="text-center text-sm text-muted-foreground pt-4">
-            This is just a brief example. Your actual plan will be more detailed with sections like "What to Avoid," "Time Management Tips," and "Reflection Prompts."
+          <div className="pt-2">
+            <div className="flex items-center space-x-3 mb-4">
+              <BarChart3 className="h-6 w-6 text-accent" />
+              <h3 className="text-xl font-headline font-semibold text-accent">📊 Sample Infographic Preview</h3>
+            </div>
+            <div className="ml-9">
+              <div className="relative w-full aspect-[3/2] rounded-md overflow-hidden border border-border shadow-sm mb-2">
+                <Image
+                  src="https://placehold.co/600x400.png"
+                  alt="Sample Infographic Preview"
+                  layout="fill"
+                  objectFit="cover"
+                  data-ai-hint="plan infographic example"
+                />
+              </div>
+              <p className="text-xs text-card-foreground/70">
+                Vision Flow also generates a visual infographic like this to help you track your progress at a glance.
+              </p>
+            </div>
+          </div>
+
+          <CardDescription className="text-center text-sm text-muted-foreground pt-6">
+            This is just a brief example. Your actual plan will be more detailed with sections like "What to Avoid," "Time Management Tips," and "Reflection Prompts," plus your personalized infographic!
           </CardDescription>
         </CardContent>
       </Card>
