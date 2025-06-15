@@ -8,82 +8,82 @@ body {
 
 @layer base {
   :root {
-    /* Light Theme - Classy & Premium Enhanced */
-    --background: 30 60% 97%; /* Softer, warmer Cream - was 40 50% 97% */
-    --foreground: 220 25% 20%; /* Deeper Slate Gray - was 220 15% 25% */
+    /* Light Theme - Classy & Premium Enhanced Further */
+    --background: 35 70% 97%; /* Warmer Cream - was 30 60% 97% */
+    --foreground: 220 25% 18%; /* Slightly Darker Slate Gray - was 220 25% 20% */
     
     --card: 0 0% 100%; /* Crisp White */
-    --card-foreground: 220 25% 20%; /* Deeper Slate Gray */
+    --card-foreground: 220 25% 18%; /* Slightly Darker Slate Gray */
     
     --popover: 0 0% 100%; /* Crisp White */
-    --popover-foreground: 220 25% 20%; /* Deeper Slate Gray */
+    --popover-foreground: 220 25% 18%; /* Slightly Darker Slate Gray */
     
-    --primary: 200 55% 40%; /* More Saturated, Deeper Teal - was 200 50% 45% */
+    --primary: 210 55% 42%; /* Deeper, sophisticated Blue-Teal - was 200 55% 40% */
     --primary-foreground: 0 0% 100%; /* White */
     
-    --secondary: 200 45% 92%; /* Lighter, complementary teal - was 210 30% 95% */
-    --secondary-foreground: 200 55% 30%; /* Darker text for secondary - was 210 30% 40% */
+    --secondary: 210 45% 93%; /* Complementary Lighter Blue-Teal - was 200 45% 92% */
+    --secondary-foreground: 210 55% 28%; /* Darker text for new secondary - was 200 55% 30% */
     
-    --muted: 220 30% 94%; /* Slightly adjusted muted gray - was 210 30% 96% */
-    --muted-foreground: 220 15% 50%; /* was 210 30% 55% */
+    --muted: 220 35% 95%; /* Slightly warmer muted gray - was 220 30% 94% */
+    --muted-foreground: 220 15% 45%; /* Adjusted for new muted - was 220 15% 50% */
     
-    --accent: 35 70% 58%; /* Richer, warmer Gold/Ochre - was 30 80% 60% */
-    --accent-foreground: 220 25% 15%; /* Darker text for accent */
+    --accent: 38 80% 58%; /* Richer, vibrant Gold/Ochre - was 35 70% 58% */
+    --accent-foreground: 38 70% 15%; /* Darker text for new accent - was 220 25% 15% */
     
-    --destructive: 0 70% 50%; /* Kept similar, adjust if needed */
+    --destructive: 0 70% 50%; /* Kept similar */
     --destructive-foreground: 0 0% 98%; /* Light text for destructive */
     
-    --border: 220 20% 85%; /* Softer border - was 210 20% 88% */
+    --border: 220 25% 88%; /* Softer border to complement new bg/muted - was 220 20% 85% */
     --input: 0 0% 100%; /* White input background */
-    --ring: 200 55% 40%; /* Primary color for focus rings */
+    --ring: 210 55% 42%; /* New primary color for focus rings */
     
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.75rem; /* Slightly more rounded - was 0.5rem */
+    --radius: 0.75rem; /* Consistent rounded corners */
 
     /* Sidebar variables, adjusted for new theme */
-    --sidebar-background: 30 50% 95%; /* Consistent with main bg family */
-    --sidebar-foreground: 220 25% 25%;
-    --sidebar-primary: 200 55% 40%;
+    --sidebar-background: 35 60% 96%; /* Consistent with main bg family */
+    --sidebar-foreground: 220 25% 22%;
+    --sidebar-primary: 210 55% 42%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 35 70% 68%; /* Lighter accent for sidebar */
-    --sidebar-accent-foreground: 220 25% 15%;
-    --sidebar-border: 220 20% 82%;
-    --sidebar-ring: 200 55% 40%;
+    --sidebar-accent: 38 80% 65%; /* Lighter accent for sidebar */
+    --sidebar-accent-foreground: 38 70% 15%;
+    --sidebar-border: 220 25% 86%;
+    --sidebar-ring: 210 55% 42%;
   }
 
   .dark {
-    /* Dark Theme - Classy & Premium Enhanced */
-    --background: 220 20% 10%; /* Very Dark, slightly bluer Charcoal - was 220 15% 12% */
-    --foreground: 220 10% 90%; /* Lighter, clearer Gray - was 210 10% 85% */
+    /* Dark Theme - Classy & Premium Enhanced Further */
+    --background: 220 20% 9%; /* Very Dark, slightly bluer Charcoal - was 220 20% 10% */
+    --foreground: 220 10% 92%; /* Lighter, clearer Gray - was 220 10% 90% */
 
-    --card: 220 20% 14%; /* Dark card, slightly lighter than bg */
-    --card-foreground: 220 10% 90%;
+    --card: 220 20% 13%; /* Dark card, slightly lighter than bg - was 220 20% 14% */
+    --card-foreground: 220 10% 92%;
 
-    --popover: 220 20% 10%;
-    --popover-foreground: 220 10% 90%;
+    --popover: 220 20% 9%;
+    --popover-foreground: 220 10% 92%;
 
-    --primary: 40 80% 65%; /* Brighter, richer Gold/Amber - was 35 90% 65% */
-    --primary-foreground: 40 70% 10%; /* Dark text for dark primary */
+    --primary: 40 85% 62%; /* Brighter, richer Gold/Amber - was 40 80% 65% */
+    --primary-foreground: 40 70% 8%; /* Dark text for dark primary */
 
-    --secondary: 220 20% 22%; /* Dark secondary */
-    --secondary-foreground: 220 10% 85%;
+    --secondary: 220 20% 20%; /* Dark secondary, a bit darker - was 220 20% 22% */
+    --secondary-foreground: 220 10% 88%; /* Adjusted - was 220 10% 85% */
 
-    --muted: 220 20% 18%;
-    --muted-foreground: 220 10% 65%;
+    --muted: 220 20% 17%; /* was 220 20% 18% */
+    --muted-foreground: 220 10% 60%; /* was 220 10% 65% */
 
-    --accent: 190 60% 60%; /* Vibrant, deep Sapphire/Teal - was 180 70% 55% */
+    --accent: 190 65% 58%; /* Vibrant, deep Sapphire/Teal - was 190 60% 60% */
     --accent-foreground: 190 50% 98%; /* Light text for dark accent */
 
     --destructive: 0 60% 55%; /* Kept similar */
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 20% 25%; /* Softer dark border */
-    --input: 220 20% 16%; /* Dark input background */
-    --ring: 40 80% 65%; /* Primary color for ring */
+    --border: 220 20% 22%; /* Softer dark border, a bit darker - was 220 20% 25% */
+    --input: 220 20% 15%; /* Dark input background - was 220 20% 16% */
+    --ring: 40 85% 62%; /* New primary color for ring */
 
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
@@ -92,14 +92,14 @@ body {
     --chart-5: 340 75% 55%;
 
     /* Dark Sidebar variables */
-    --sidebar-background: 220 20% 8%;
-    --sidebar-foreground: 220 10% 80%;
-    --sidebar-primary: 40 80% 65%;
-    --sidebar-primary-foreground: 40 70% 10%;
-    --sidebar-accent: 190 60% 55%;
+    --sidebar-background: 220 20% 7%; /* was 220 20% 8% */
+    --sidebar-foreground: 220 10% 85%; /* was 220 10% 80% */
+    --sidebar-primary: 40 85% 62%;
+    --sidebar-primary-foreground: 40 70% 8%;
+    --sidebar-accent: 190 65% 55%; /* was 190 60% 55% */
     --sidebar-accent-foreground: 190 50% 95%;
-    --sidebar-border: 220 20% 20%;
-    --sidebar-ring: 40 80% 65%;
+    --sidebar-border: 220 20% 18%; /* was 220 20% 20% */
+    --sidebar-ring: 40 85% 62%;
   }
 }
 
