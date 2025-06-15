@@ -1,3 +1,4 @@
+
 // src/components/planner/PlanDisplay.tsx
 'use client';
 import { useRef } from 'react';
@@ -28,10 +29,19 @@ export default function PlanDisplay({ plan, onCopy, onStartOver }: PlanDisplayPr
       return;
     }
     try {
+      // Wait for all fonts to be loaded and ready
+      await document.fonts.ready;
+
+      const rootStyle = getComputedStyle(document.documentElement);
+      const bgCssValue = rootStyle.getPropertyValue('--background').trim();
+      // Check if the dark mode specific HSL value for --background is present
+      const isDarkModeActive = bgCssValue.includes('230 15% 12%'); 
+      const imageBgColor = isDarkModeActive ? '#1E2124' : '#F0F0F5';
+      
       const dataUrl = await toPng(planRef.current, { 
         cacheBust: true, 
         quality: 0.95, 
-        backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--background').includes('230 15% 12%') ? '#1E2124' : '#F0F0F5' // Use theme bg color
+        backgroundColor: imageBgColor,
       });
       const link = document.createElement('a');
       link.download = 'my-life-plan.png';
@@ -43,9 +53,15 @@ export default function PlanDisplay({ plan, onCopy, onStartOver }: PlanDisplayPr
       });
     } catch (err) {
       console.error("Failed to save as PNG", err);
+      let description = "Could not save the plan as an image. Please try again.";
+      if (err instanceof Error && err.message.includes("CSSStyleSheet")) {
+        description = "Could not save the plan as an image due to a font loading issue. Please try again. If the problem persists, ensure your browser allows access to Google Fonts."
+      } else if (err instanceof Error) {
+        description = err.message;
+      }
       toast({
         title: "Error Saving PNG",
-        description: "Could not save the plan as an image. Please try again.",
+        description: description,
         variant: "destructive",
       });
     }
