@@ -13,14 +13,16 @@ interface FeatureItemProps {
 
 const FeatureItem: React.FC<FeatureItemProps> = ({ icon: Icon, title, description, delay }) => (
   <Card 
-    className="text-center p-6 bg-card hover:shadow-xl transition-all duration-300 h-full flex flex-col rounded-lg border-border animate-in fade-in-0 zoom-in-95"
+    className="text-center p-4 sm:p-6 bg-card hover:shadow-xl transition-all duration-300 h-full flex flex-col rounded-lg border-border animate-in fade-in-0 zoom-in-95"
     style={{ animationDelay: `${delay}ms` }}
   >
-    <div className="mb-4 text-primary flex justify-center">
-      <Icon className="h-10 w-10" />
+    <div className="mb-4 flex justify-center">
+      <div className="p-3 rounded-full bg-primary/10 text-primary inline-block">
+        <Icon className="h-8 w-8 sm:h-9 sm:w-9" />
+      </div>
     </div>
-    <h3 className="text-xl font-headline font-semibold text-card-foreground mb-2">{title}</h3>
-    <p className="text-card-foreground/80 text-sm flex-grow">{description}</p>
+    <h3 className="text-lg sm:text-xl font-headline font-semibold text-card-foreground mb-2">{title}</h3>
+    <p className="text-card-foreground/80 text-sm flex-grow px-2">{description}</p>
   </Card>
 );
 
