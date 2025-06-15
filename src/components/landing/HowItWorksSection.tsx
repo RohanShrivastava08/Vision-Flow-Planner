@@ -10,7 +10,6 @@ interface Step {
   title: string;
   description: string;
   imageSrc: string;
-  imageHint: string;
 }
 
 const steps: Step[] = [
@@ -18,22 +17,19 @@ const steps: Step[] = [
     icon: Lightbulb, 
     title: "1. Share Your Vision",
     description: "Start with your one-line goal. What dream or aspiration do you want to bring to life?",
-    imageSrc: "https://source.unsplash.com/600x400/?idea,lightbulb,inspiration",
-    imageHint: "inspiration lightbulb",
+    imageSrc: "https://images.unsplash.com/photo-1635357011749-f315642e735f?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHNoYXJlJTIwdmlzaW9ufGVufDB8fDB8fHww",
   },
   {
     icon: BrainCircuit, 
     title: "2. Get Your AI Plan",
     description: "Our AI crafts a personalized, step-by-step life plan and a prompt for your visual infographic.",
-    imageSrc: "https://source.unsplash.com/600x400/?ai,planning,strategy",
-    imageHint: "ai planning",
+    imageSrc: "https://plus.unsplash.com/premium_photo-1681457330049-dcdb2ac363fe?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cm9ib3QlMjBkaWFyeXxlbnwwfHwwfHx8MA%3D%3D",
   },
   {
     icon: TrendingUp, 
     title: "3. Visualize & Achieve",
     description: "Use your detailed text plan and the AI-generated infographic to stay on track and make consistent progress.",
-    imageSrc: "https://source.unsplash.com/600x400/?success,achievement,growth",
-    imageHint: "growth achievement",
+    imageSrc: "https://plus.unsplash.com/premium_photo-1723619021737-df1d775eccc8?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dmlzdWFsaXplJTIwYW5kJTIwYWNoaWV2ZXxlbnwwfHwwfHx8MA%3D%3D",
   },
 ];
 
