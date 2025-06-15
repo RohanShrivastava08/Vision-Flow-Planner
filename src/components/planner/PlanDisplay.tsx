@@ -3,7 +3,7 @@
 'use client';
 import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Copy, RotateCcw, Download, Target, ListChecks, Ban, Clock, Wrench, HelpCircle, Sparkle } from 'lucide-react';
+import { Copy, RotateCcw, Download, Target, ListChecks, Ban, Clock, Wrench, HelpCircle, Sparkle, Image as ImageIcon, Settings2 } from 'lucide-react';
 import PlanSection from './PlanSection';
 import type { LifePlan } from '@/types';
 import { toPng } from 'html-to-image';
@@ -33,8 +33,9 @@ export default function PlanDisplay({ plan, onCopy, onStartOver }: PlanDisplayPr
 
       const rootStyle = getComputedStyle(document.documentElement);
       const bgCssValue = rootStyle.getPropertyValue('--background').trim();
+      // Check if the background HSL value corresponds to the dark theme's typical range
       const isDarkModeActive = bgCssValue.startsWith('230'); 
-      const imageBgColor = isDarkModeActive ? '#1E2124' : '#F0F0F5';
+      const imageBgColor = isDarkModeActive ? '#1E2124' : '#F0F0F5'; // Dark mode: very dark blue-gray, Light mode: Light Gray
       
       const dataUrl = await toPng(planRef.current, { 
         cacheBust: true, 
@@ -47,7 +48,7 @@ export default function PlanDisplay({ plan, onCopy, onStartOver }: PlanDisplayPr
       link.click();
       toast({
         title: "Plan Saved as PNG!",
-        description: "Your personalized plan image has been downloaded.",
+        description: "Your personalized plan's text content has been downloaded as an image.",
       });
     } catch (err) {
       console.error("Failed to save as PNG", err);
@@ -112,15 +113,27 @@ export default function PlanDisplay({ plan, onCopy, onStartOver }: PlanDisplayPr
           content={plan.dailyAffirmation}
           iconClassName="text-primary"
         />
+        <PlanSection
+          title="🖼️ AI Infographic Prompt"
+          icon={ImageIcon}
+          content={plan.infographicPrompt}
+          iconClassName="text-primary"
+        />
+        <PlanSection
+          title="💡 Infographic Download Tip"
+          icon={Settings2}
+          content={plan.downloadInstructions}
+          iconClassName="text-primary"
+        />
       </div>
       <div className="flex flex-col sm:flex-row gap-4 pt-4">
         <Button onClick={onCopy} className="flex-1 text-base py-3 shadow-md hover:shadow-lg transition-shadow">
           <Copy className="mr-2 h-5 w-5" />
-          Copy Plan to Clipboard
+          Copy Plan Text
         </Button>
         <Button onClick={handleSaveAsPng} variant="secondary" className="flex-1 text-base py-3 shadow-md hover:shadow-lg transition-shadow">
           <Download className="mr-2 h-5 w-5" />
-          Save as PNG
+          Save Plan as PNG
         </Button>
         <Button onClick={onStartOver} variant="outline" className="flex-1 text-base py-3 shadow-md hover:shadow-lg transition-shadow border-primary/50 hover:bg-primary/5 dark:border-primary/30 dark:hover:bg-primary/10">
           <RotateCcw className="mr-2 h-5 w-5" />
@@ -130,3 +143,5 @@ export default function PlanDisplay({ plan, onCopy, onStartOver }: PlanDisplayPr
     </div>
   );
 }
+
+    

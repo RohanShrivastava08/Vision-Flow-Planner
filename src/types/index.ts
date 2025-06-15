@@ -9,4 +9,8 @@ export interface LifePlan {
   toolsToHelp?: string[];
   reflectionPrompts: string[];
   dailyAffirmation: string;
+  infographicPrompt: string;
+  downloadInstructions: string;
 }
+
+    

@@ -37,8 +37,8 @@ export default function HomePage() {
       // The AI flow will use its default (3 months) if timeframe is not provided.
       const result = await generateLifePlan({ goal: values.goal });
 
-      if (!result || !result.timeframeUsed || !result.visionStatement || !result.actionPlan || !result.whatToAvoid || !result.timeManagementTips || !result.reflectionPrompts || !result.dailyAffirmation) {
-        throw new Error("Received incomplete data from AI service. Please ensure all plan sections are generated.");
+      if (!result || !result.timeframeUsed || !result.visionStatement || !result.actionPlan || !result.whatToAvoid || !result.timeManagementTips || !result.reflectionPrompts || !result.dailyAffirmation || !result.infographicPrompt || !result.downloadInstructions) {
+        throw new Error("Received incomplete data from AI service. Please ensure all plan sections, infographic prompt, and download instructions are generated.");
       }
       
       setPlan(result);
@@ -83,7 +83,7 @@ ${plan.dailyAffirmation}
       .then(() => {
         toast({
           title: "Plan Copied!",
-          description: "Your personalized life plan is now in your clipboard.",
+          description: "Your personalized life plan text is now in your clipboard.",
         });
       })
       .catch(err => {
@@ -134,3 +134,5 @@ ${plan.dailyAffirmation}
     </div>
   );
 }
+
+    
