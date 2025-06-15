@@ -31,7 +31,7 @@ export default function DemoSection() {
             <Lightbulb className="h-7 w-7 text-primary" />
             <p className="text-sm font-semibold text-primary tracking-wide uppercase">Your Goal</p>
           </div>
-          <CardTitle className="text-2xl font-semibold text-card-foreground">{demoGoal}</CardTitle>
+          <CardTitle className="text-2xl font-headline font-semibold text-card-foreground">{demoGoal}</CardTitle>
         </CardHeader>
         <CardContent className="p-6 space-y-6">
           <div>

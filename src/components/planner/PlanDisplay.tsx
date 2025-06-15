@@ -66,8 +66,8 @@ export default function PlanDisplay({ plan, onCopy, onStartOver, generatedInfogr
       await document.fonts.ready;
 
       const isDarkMode = document.documentElement.classList.contains('dark');
-      // Light: hsl(30, 60%, 97%) -> #fcfaf7
-      // Dark: hsl(220, 20%, 10%) -> #14171f
+      // Light: hsl(35, 70%, 97%) -> #fcfaf7
+      // Dark: hsl(220, 20%, 9%) -> #14171f (using the current theme from globals.css)
       const bgColor = isDarkMode ? '#14171f' : '#fcfaf7';
 
       const dataUrl = await toPng(planToSaveRef.current, {

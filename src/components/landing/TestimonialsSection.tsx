@@ -78,7 +78,7 @@ export default function TestimonialsSection() {
                 <AvatarFallback>{testimonial.name.substring(0, 2)}</AvatarFallback>
               </Avatar>
               <div>
-                <CardTitle className="text-lg font-semibold text-card-foreground">{testimonial.name}</CardTitle>
+                <CardTitle className="text-lg font-headline font-semibold text-card-foreground">{testimonial.name}</CardTitle>
                 {testimonial.role && <CardDescription className="text-xs text-muted-foreground -mt-0.5">{testimonial.role}</CardDescription>}
               </div>
             </CardHeader>
