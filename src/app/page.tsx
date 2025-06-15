@@ -12,6 +12,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import GoalInputForm, { goalFormSchema, type GoalFormValues } from '@/components/forms/GoalInputForm';
 import PlanDisplay from '@/components/planner/PlanDisplay';
+import AboutSection from '@/components/landing/AboutSection';
 import FeaturesSection from '@/components/landing/FeaturesSection';
 import DemoSection from '@/components/landing/DemoSection';
 import HowItWorksSection from '@/components/landing/HowItWorksSection';
@@ -40,9 +41,9 @@ export default function HomePage() {
 
   async function onSubmit(values: GoalFormValues) {
     setIsLoadingTextPlan(true);
-    setIsGeneratingInfographic(false); // Reset infographic loading state
-    setPlan(null); // Clear previous plan
-    setGeneratedInfographicUrl(null); // Clear previous image
+    setIsGeneratingInfographic(false); 
+    setPlan(null); 
+    setGeneratedInfographicUrl(null); 
 
     try {
       const textResult = await generateLifePlan({ goal: values.goal });
@@ -54,7 +55,6 @@ export default function HomePage() {
       setPlan(textResult);
       setIsLoadingTextPlan(false); 
 
-      // Start generating infographic if prompt is available
       if (textResult.infographicPrompt) {
         setIsGeneratingInfographic(true);
         try {
@@ -62,7 +62,6 @@ export default function HomePage() {
           if (imageResult && imageResult.imageUrl) {
             setGeneratedInfographicUrl(imageResult.imageUrl);
           } else {
-             // No error, but no image. Notify user, but don't use destructive variant.
             toast({
               title: "Infographic Generation Issue",
               description: "Could not generate the infographic image, but your text plan is ready.",
@@ -74,7 +73,7 @@ export default function HomePage() {
           toast({
             title: "Infographic Generation Failed",
             description: imgError instanceof Error ? imgError.message : "An unexpected error occurred while generating the infographic.",
-            variant: "default", // Keep this non-destructive as the main plan is still useful
+            variant: "default", 
           });
         } finally {
           setIsGeneratingInfographic(false);
@@ -96,7 +95,6 @@ export default function HomePage() {
   function handleCopyPlan() {
     if (!plan) return;
 
-    // Updated to reflect new LifePlan structure
     const planText = `
 📌 Vision Statement for ${plan.timeframeUsed}:
 ${plan.visionStatement}
@@ -139,7 +137,6 @@ ${plan.infographicPrompt}
   }
 
   function handleStartOver() {
-    // form.reset({ goal: '' }); // Keep goal input if user wants to tweak
     setPlan(null);
     setGeneratedInfographicUrl(null);
     setIsLoadingTextPlan(false);
@@ -168,7 +165,7 @@ ${plan.infographicPrompt}
 
         {showLoadingIndicator && (
           <div className="flex flex-col items-center justify-center space-y-4 mt-8 text-center animate-in fade-in duration-300">
-            <Loader2 className="h-12 w-12 sm:h-16 sm:w-16 animate-spin text-primary" />
+            <Loader2 className="h-16 w-16 sm:h-20 sm:w-20 animate-spin text-primary" />
             <p className="text-lg sm:text-xl text-muted-foreground">
               {isLoadingTextPlan ? "Crafting your personalized life plan..." : "Generating your infographic..."}
               <br className="sm:hidden"/> This might take a moment.
@@ -182,13 +179,15 @@ ${plan.infographicPrompt}
             onCopy={handleCopyPlan}
             onStartOver={handleStartOver}
             generatedInfographicUrl={generatedInfographicUrl}
-            isGeneratingInfographic={isGeneratingInfographic} // Pass this for loader within PlanDisplay
+            isGeneratingInfographic={isGeneratingInfographic} 
           />
         )}
         
         {!plan && !showLoadingIndicator && (
           <div className="w-full space-y-12 sm:space-y-16 animate-in fade-in-0 delay-300 duration-700 mt-8">
             <DemoSection />
+            <Separator className="my-12 sm:my-16" />
+            <AboutSection />
             <Separator className="my-12 sm:my-16" />
             <HowItWorksSection />
             <Separator className="my-12 sm:my-16" />

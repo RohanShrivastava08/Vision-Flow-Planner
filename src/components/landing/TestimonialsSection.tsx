@@ -39,7 +39,6 @@ const testimonialsData: Testimonial[] = [
     review: "As a freelancer, structuring my long-term goals felt overwhelming. Vision Flow helped me break it down into manageable steps. Love the simplicity.",
     rating: 4,
   },
-  // Removed the fourth testimonial
 ];
 
 const StarRating = ({ rating }: { rating: number }) => {
