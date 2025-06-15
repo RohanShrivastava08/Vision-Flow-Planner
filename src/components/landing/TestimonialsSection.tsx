@@ -1,3 +1,4 @@
+
 // src/components/landing/TestimonialsSection.tsx
 'use client';
 
@@ -9,7 +10,6 @@ interface Testimonial {
   name: string;
   role?: string; 
   avatarSrc: string;
-  avatarHint: string;
   review: string;
   rating: number;
 }
@@ -18,24 +18,21 @@ const testimonialsData: Testimonial[] = [
   {
     name: "Alex P.",
     role: "Aspiring Entrepreneur",
-    avatarSrc: "https://placehold.co/100x100.png",
-    avatarHint: "smiling person",
+    avatarSrc: "https://source.unsplash.com/100x100/?smiling,person",
     review: "Vision Flow turned my vague idea of 'getting healthier' into a concrete daily plan. The infographic is a game-changer for staying motivated!",
     rating: 5,
   },
   {
     name: "Sarah K.",
     role: "University Student",
-    avatarSrc: "https://placehold.co/100x100.png",
-    avatarHint: "focused student",
+    avatarSrc: "https://source.unsplash.com/100x100/?focused,student",
     review: "I was struggling to balance study and personal projects. The AI's time management tips were surprisingly insightful. Highly recommend!",
     rating: 5,
   },
   {
     name: "Mike R.",
     role: "Freelance Designer",
-    avatarSrc: "https://placehold.co/100x100.png",
-    avatarHint: "creative professional",
+    avatarSrc: "https://source.unsplash.com/100x100/?creative,professional",
     review: "As a freelancer, structuring my long-term goals felt overwhelming. Vision Flow helped me break it down into manageable steps. Love the simplicity.",
     rating: 4,
   },
@@ -74,7 +71,7 @@ export default function TestimonialsSection() {
           >
             <CardHeader className="flex flex-row items-center gap-4 pb-3 pt-5 px-5">
               <Avatar className="h-12 w-12 border-2 border-primary/30">
-                <AvatarImage src={testimonial.avatarSrc} alt={testimonial.name} data-ai-hint={testimonial.avatarHint} />
+                <AvatarImage src={testimonial.avatarSrc} alt={testimonial.name} />
                 <AvatarFallback>{testimonial.name.substring(0, 2)}</AvatarFallback>
               </Avatar>
               <div>

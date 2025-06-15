@@ -1,3 +1,4 @@
+
 // src/components/landing/AboutSection.tsx
 'use client';
 
@@ -10,11 +11,10 @@ interface AboutItemProps {
   title: string;
   description: string;
   imageSrc: string;
-  imageHint: string;
   delay: number;
 }
 
-const AboutItem: React.FC<AboutItemProps> = ({ icon: Icon, title, description, imageSrc, imageHint, delay }) => (
+const AboutItem: React.FC<AboutItemProps> = ({ icon: Icon, title, description, imageSrc, delay }) => (
   <Card 
     className="bg-card hover:shadow-xl transition-all duration-300 h-full flex flex-col rounded-lg border-border overflow-hidden animate-in fade-in-0 zoom-in-95"
     style={{ animationDelay: `${delay}ms` }}
@@ -25,7 +25,6 @@ const AboutItem: React.FC<AboutItemProps> = ({ icon: Icon, title, description, i
         alt={title}
         layout="fill"
         objectFit="cover"
-        data-ai-hint={imageHint}
       />
     </div>
     <CardHeader className="pb-3 pt-5">
@@ -46,24 +45,21 @@ export default function AboutSection() {
       icon: Goal,
       title: "Empowering Your Goals",
       description: "We believe that every great achievement starts with a single, clear goal. Vision Flow is designed to take that initial spark and help you nurture it into a fully-fledged plan for success.",
-      imageSrc: "https://placehold.co/400x300.png",
-      imageHint: "goal achievement",
+      imageSrc: "https://source.unsplash.com/400x300/?goal,achievement",
       delay: 100,
     },
     {
       icon: Eye,
       title: "Cultivating Clear Vision",
       description: "A clear vision is the roadmap to your aspirations. Our AI helps you articulate this vision, breaking down complexities into understandable and inspiring milestones for any timeframe.",
-      imageSrc: "https://placehold.co/400x300.png",
-      imageHint: "clear path",
+      imageSrc: "https://source.unsplash.com/400x300/?clear,path",
       delay: 200,
     },
     {
       icon: ListTodo,
       title: "Fostering Actionable Plans",
       description: "Ideas are powerful, but action is transformative. Vision Flow provides you with structured, actionable steps, practical tips, and motivational support to turn your vision into reality.",
-      imageSrc: "https://placehold.co/400x300.png",
-      imageHint: "planning progress",
+      imageSrc: "https://source.unsplash.com/400x300/?planning,progress",
       delay: 300,
     },
   ];
