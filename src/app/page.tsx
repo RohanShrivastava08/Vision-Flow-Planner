@@ -12,6 +12,10 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import GoalInputForm, { goalFormSchema, type GoalFormValues } from '@/components/forms/GoalInputForm';
 import PlanDisplay from '@/components/planner/PlanDisplay';
+import FeaturesSection from '@/components/landing/FeaturesSection';
+import DemoSection from '@/components/landing/DemoSection';
+import FaqSection from '@/components/landing/FaqSection';
+import { Separator } from '@/components/ui/separator';
 
 import { generateLifePlan } from '@/ai/flows/life-plan-generation';
 import { generateImage } from '@/ai/flows/image-generation-flow';
@@ -141,15 +145,29 @@ ${plan.infographicPrompt}
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8 sm:py-12 flex flex-col items-center">
-        <section className="w-full max-w-2xl text-center mb-10 sm:mb-12">
-          <h1 className="text-4xl sm:text-5xl font-headline font-bold mb-3 sm:mb-4 text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-foreground/80 dark:to-accent">
-            Vision Flow
-          </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8">
-            Turn your one-liner goal into a detailed, AI-powered life plan & visual infographic with Vision Flow.
-          </p>
-          <GoalInputForm form={form} onSubmit={onSubmit} isLoading={isLoadingTextPlan || isGeneratingInfographic} />
-        </section>
+        
+        {!plan && (
+          <>
+            <section className="w-full max-w-3xl text-center mb-10 sm:mb-16">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-headline font-bold mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-foreground/80 dark:to-accent">
+                Vision Flow
+              </h1>
+              <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground mb-8 sm:mb-10">
+                Transform your goals into actionable AI-powered life plans and visual infographics. <br className="hidden sm:block" />
+                Start with one line, achieve with a clear vision.
+              </p>
+              <div className="max-w-2xl mx-auto">
+                <GoalInputForm form={form} onSubmit={onSubmit} isLoading={isLoadingTextPlan || isGeneratingInfographic} />
+              </div>
+            </section>
+
+            <DemoSection />
+            <Separator className="my-12 sm:my-16" />
+            <FeaturesSection />
+            <Separator className="my-12 sm:my-16" />
+            <FaqSection />
+          </>
+        )}
 
         {(isLoadingTextPlan || (!plan && isGeneratingInfographic)) && (
           <div className="flex flex-col items-center justify-center space-y-3 mt-8 text-center">
