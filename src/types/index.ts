@@ -1,10 +1,12 @@
+
 // src/types/index.ts
 export interface LifePlan {
-  threeMonthVision: string;
-  whatToDoDaily: string[];
+  timeframeUsed: string;
+  visionStatement: string;
+  actionPlan: string[];
   whatToAvoid: string[];
   timeManagementTips: string[];
-  toolsToHelp?: string[]; // Optional as per prompt
-  weeklyReflectionQuestions: string[];
+  toolsToHelp?: string[];
+  reflectionPrompts: string[];
   dailyAffirmation: string;
 }

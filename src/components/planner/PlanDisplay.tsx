@@ -29,13 +29,11 @@ export default function PlanDisplay({ plan, onCopy, onStartOver }: PlanDisplayPr
       return;
     }
     try {
-      // Wait for all fonts to be loaded and ready
       await document.fonts.ready;
 
       const rootStyle = getComputedStyle(document.documentElement);
       const bgCssValue = rootStyle.getPropertyValue('--background').trim();
-      // Check if the dark mode specific HSL value for --background is present
-      const isDarkModeActive = bgCssValue.includes('230 15% 12%'); 
+      const isDarkModeActive = bgCssValue.startsWith('230'); 
       const imageBgColor = isDarkModeActive ? '#1E2124' : '#F0F0F5';
       
       const dataUrl = await toPng(planRef.current, { 
@@ -71,15 +69,15 @@ export default function PlanDisplay({ plan, onCopy, onStartOver }: PlanDisplayPr
     <div className="w-full max-w-3xl space-y-6 sm:space-y-8 mt-8 animate-in fade-in-0 slide-in-from-bottom-10 duration-500">
       <div ref={planRef} className="w-full space-y-6 sm:space-y-8 bg-background p-px"> {/* Added p-px for html-to-image to capture bg */}
         <PlanSection
-          title="📌 3-Month Vision"
+          title={`📌 Vision Statement for ${plan.timeframeUsed}`}
           icon={Target}
-          content={plan.threeMonthVision}
+          content={plan.visionStatement}
           iconClassName="text-primary"
         />
         <PlanSection
-          title="🧠 What to Do Daily"
+          title="✅ Daily or Monthly Action Plan"
           icon={ListChecks}
-          content={plan.whatToDoDaily}
+          content={plan.actionPlan}
           iconClassName="text-primary"
         />
         <PlanSection
@@ -89,27 +87,27 @@ export default function PlanDisplay({ plan, onCopy, onStartOver }: PlanDisplayPr
           iconClassName="text-destructive"
         />
         <PlanSection
-          title="⏳ Time Management Tips"
+          title="⏳ Time & Progress Management Tips"
           icon={Clock}
           content={plan.timeManagementTips}
           iconClassName="text-primary"
         />
         {plan.toolsToHelp && plan.toolsToHelp.length > 0 && (
           <PlanSection
-            title="🧰 Tools to Help"
+            title="🧰 Helpful Tools"
             icon={Wrench}
             content={plan.toolsToHelp}
             iconClassName="text-accent-foreground"
           />
         )}
         <PlanSection
-          title="🧭 Weekly Reflection Questions"
+          title="🧭 Reflection & Review Prompts"
           icon={HelpCircle}
-          content={plan.weeklyReflectionQuestions}
+          content={plan.reflectionPrompts}
           iconClassName="text-primary"
         />
         <PlanSection
-          title="🎯 One-Line Daily Affirmation"
+          title="🎯 Motivational Daily Affirmation"
           icon={Sparkle}
           content={plan.dailyAffirmation}
           iconClassName="text-primary"

@@ -1,6 +1,7 @@
+
 'use server';
 /**
- * @fileOverview Generates a detailed life plan based on a user's one-line goal.
+ * @fileOverview Generates a detailed life plan based on a user's one-line goal and an optional timeframe.
  *
  * - generateLifePlan - A function that handles the life plan generation process.
  * - GenerateLifePlanInput - The input type for the generateLifePlan function.
@@ -12,17 +13,19 @@ import {z} from 'genkit';
 
 const GenerateLifePlanInputSchema = z.object({
   goal: z.string().describe('The user-provided one-line goal or aspiration.'),
+  timeframe: z.string().optional().describe('Optional timeframe for the goal, e.g., "20 days", "3 months". Defaults to 3 months if not provided.'),
 });
 export type GenerateLifePlanInput = z.infer<typeof GenerateLifePlanInputSchema>;
 
 const GenerateLifePlanOutputSchema = z.object({
-  threeMonthVision: z.string().describe("A 3-Month Vision describing how the person will feel, live, and benefit. Encouraging and friendly tone. No jargon."),
-  whatToDoDaily: z.array(z.string()).describe("5-7 specific, doable daily actions. Simple explanations with emojis. Example: ✅ 'Drink 2L water 💧 to stay hydrated and feel fresh.'"),
-  whatToAvoid: z.array(z.string()).describe("List of bad habits or time-wasters to avoid. Gentle but clear with emojis. Example: ❌ 'Avoid scrolling late at night 🌙 — it steals your sleep.'"),
-  timeManagementTips: z.array(z.string()).describe("Tips on how to make time and organize schedules, with emojis. Example: 🕒 'Set 3 fixed time blocks: Morning Focus, Afternoon Chill, Evening Plan'"),
-  toolsToHelp: z.array(z.string()).optional().describe("Optional recommendations for tools, apps, methods, or hacks with emojis. Example: 📱 'Use a Pomodoro timer like ‘Focus To-Do’ for study sessions.'"),
-  weeklyReflectionQuestions: z.array(z.string()).describe("3-4 simple questions for weekly self-reflection. Example: 'Did I follow my daily plan this week?'"),
-  dailyAffirmation: z.string().describe("A short, clear one-line daily affirmation. Example: 'I grow stronger and more focused every day.'"),
+  timeframeUsed: z.string().describe("The timeframe (e.g., '3 months', '20 days') that was used to generate this plan. This should reflect the user's input or the default if none was provided."),
+  visionStatement: z.string().describe("The content of the vision statement for the specified timeframe. Encouraging and friendly tone, no jargon. Expectations adjusted for timeframe length."),
+  actionPlan: z.array(z.string()).describe("The content for the action plan. If timeframe <= 1 month, a list of 5-7 detailed daily habits. If timeframe > 1 month, a month-by-month breakdown of evolving habits/goals. Simple explanations with emojis."),
+  whatToAvoid: z.array(z.string()).describe("The content for what to avoid. A friendly list of bad habits, time-wasters, or pitfalls."),
+  timeManagementTips: z.array(z.string()).describe("The content for time management tips. Realistic scheduling tips tailored to timeframe (daily focus for short-term, monthly reviews for long-term)."),
+  toolsToHelp: z.array(z.string()).optional().describe("The content for helpful tools. Optional recommendations for tools, apps, methods, or hacks."),
+  reflectionPrompts: z.array(z.string()).describe("The content for reflection prompts. For short-term: daily/every-other-day quick checks. For long-term: weekly and monthly prompts."),
+  dailyAffirmation: z.string().describe("The content for the daily affirmation. A short, clear, positive one-line daily affirmation, customized."),
 });
 export type GenerateLifePlanOutput = z.infer<typeof GenerateLifePlanOutputSchema>;
 
@@ -34,31 +37,52 @@ const prompt = ai.definePrompt({
   name: 'lifePlanPrompt',
   input: {schema: GenerateLifePlanInputSchema},
   output: {schema: GenerateLifePlanOutputSchema},
-  prompt: `You are a friendly, supportive life coach for young adults. A user will give you one sentence about their goal or aspiration.
-Goal: {{{goal}}}
+  prompt: `You are a friendly, supportive life coach for users of all backgrounds. The user will give you:
+1. A single-line goal or aspiration.
+2. Optionally, a timeframe they want to achieve it in. If no timeframe is given, assume 3 months by default.
 
-Your job is to turn that single-line goal into a well-organized, easy-to-understand, and motivating personal guide. Your output must include the following sections. Ensure bulleted lists are returned as arrays of strings. Use emojis as specified in the descriptions for each section.
+User Goal: {{{goal}}}
+{{#if timeframe}}User Timeframe: {{{timeframe}}}{{/if}}
 
-📌 **1. 3-Month Vision**
-(Describe how the person will feel, live, and benefit after following this plan for 3 months. Use encouraging and friendly tone. No jargon.)
+Your task:
+Create a detailed, beginner-friendly, and motivating life plan customized to the specified timeframe.
+You MUST determine the timeframe to use (either the user's input or '3 months' default) and state this timeframe in the 'timeframeUsed' output field.
 
-🧠 **2. What to Do Daily (Bullet List)**
-(Return as an array of strings. 5–7 specific, doable daily actions that are repeatable and practical. Use simple explanations (like teaching a kid). Add emojis and clarity like: ✅ "Drink 2L water 💧 to stay hydrated and feel fresh." or ✅ "10-minute morning stretch 🧘 to wake your body.")
+The plan must include the following sections. Generate content for each field as described:
 
-⛔ **3. What to Avoid (Bullet List)**
-(Return as an array of strings. List bad habits, time-wasters, or things that will hurt the goal. Keep it gentle but clear, like: ❌ "Avoid scrolling late at night 🌙 — it steals your sleep." or ❌ "Don't skip meals if your goal is fitness.")
+1.  **Vision Statement Content** (for the \`visionStatement\` field)
+    *   Write a clear, inspiring vision describing what success looks like after the chosen duration (e.g., after 20 days, 3 months, 6 months, or 1 year).
+    *   Adjust the tone and expectations realistically based on the length.
 
-⏳ **4. Time Management Tips (Bullet List)**
-(Return as an array of strings. How to make time in a busy schedule. How to organize morning, evening, or study blocks. Example: 🕒 "Set 3 fixed time blocks: Morning Focus, Afternoon Chill, Evening Plan" or 🔕 "Put your phone in another room during deep work.")
+2.  **Action Plan Content** (for the \`actionPlan\` field as an array of strings)
+    *   If timeframe ≤ 1 month, create detailed daily habits (5–7 actionable items), focusing on consistency and small wins.
+    *   If timeframe > 1 month, create a month-by-month breakdown, explaining how habits or goals evolve each month to build momentum.
+    *   Include simple explanations and emojis for clarity, e.g.,
+        *   “Month 1: Build habit of 10 min daily walk 🚶”
+        *   “Month 3: Add strength training twice a week 🏋️”
 
-🧰 **5. Tools to Help (Optional Apps, Methods, or Hacks - Bullet List)**
-(Return as an array of strings if applicable, otherwise can be omitted. Recommend tools like Notion, Google Calendar, alarms, physical journals, or simple tricks. Example: 📱 "Use a Pomodoro timer like ‘Focus To-Do’ for study sessions." or ✍️ "Write in a mini notebook before bed — it clears your mind.")
+3.  **What to Avoid Content** (for the \`whatToAvoid\` field as an array of strings)
+    *   Provide a friendly list of what to avoid (bad habits, pitfalls) to keep progress smooth.
 
-🧭 **6. Weekly Reflection Questions (Bullet List)**
-(Return as an array of strings. Give 3–4 simple questions the user can ask themselves every Sunday to track progress and mindset. Example: "Did I follow my daily plan this week?", "What felt easy? What was hard?", "What made me proud this week?")
+4.  **Time Management Tips Content** (for the \`timeManagementTips\` field as an array of strings)
+    *   Suggest realistic scheduling tips tailored to the timeframe.
+    *   For short-term (≤1 month), focus on daily time-blocking and focus habits.
+    *   For long-term (>1 month), include monthly review points, habit stacking, and adjustment tips.
 
-🎯 **7. One-Line Daily Affirmation (Motivational)**
-(A short, clear line the user can repeat every morning. Example: “I grow stronger and more focused every day.”)
+5.  **Helpful Tools Content** (for the \`toolsToHelp\` field as an array of strings, optional)
+    *   Suggest apps, journaling techniques, alarms, or simple hacks to support planning and tracking.
+
+6.  **Reflection Prompts Content** (for the \`reflectionPrompts\` field as an array of strings)
+    *   For short-term: Provide daily or every-other-day quick check questions.
+    *   For long-term: Provide weekly and monthly reflection questions to adjust and stay motivated.
+
+7.  **Motivational Daily Affirmation Content** (for the \`dailyAffirmation\` field as a string)
+    *   A short, positive affirmation customized to the goal and timeframe.
+
+Make sure explanations are simple, friendly, and motivating—like teaching a kid.
+Adjust tone and detail density based on timeframe length to be encouraging but realistic.
+The output should be suitable for the defined Zod schema.
+The \`timeframeUsed\` field in your output MUST accurately reflect the timeframe you based the plan on.
 `,
 });
 

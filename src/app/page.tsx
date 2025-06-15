@@ -1,3 +1,4 @@
+
 // src/app/page.tsx
 'use client';
 
@@ -32,9 +33,11 @@ export default function HomePage() {
     setIsLoading(true);
     setPlan(null); 
     try {
+      // Note: Timeframe input is not yet implemented in the UI.
+      // The AI flow will use its default (3 months) if timeframe is not provided.
       const result = await generateLifePlan({ goal: values.goal });
 
-      if (!result || !result.threeMonthVision || !result.whatToDoDaily || !result.whatToAvoid || !result.timeManagementTips || !result.weeklyReflectionQuestions || !result.dailyAffirmation) {
+      if (!result || !result.timeframeUsed || !result.visionStatement || !result.actionPlan || !result.whatToAvoid || !result.timeManagementTips || !result.reflectionPrompts || !result.dailyAffirmation) {
         throw new Error("Received incomplete data from AI service. Please ensure all plan sections are generated.");
       }
       
@@ -56,23 +59,23 @@ export default function HomePage() {
     if (!plan) return;
 
     const planText = `
-📌 3-Month Vision:
-${plan.threeMonthVision}
+📌 Vision Statement for ${plan.timeframeUsed}:
+${plan.visionStatement}
 
-🧠 What to Do Daily:
-${plan.whatToDoDaily.map(item => `- ${item}`).join('\n')}
+✅ Daily or Monthly Action Plan:
+${plan.actionPlan.map(item => `- ${item}`).join('\n')}
 
 ⛔ What to Avoid:
 ${plan.whatToAvoid.map(item => `- ${item}`).join('\n')}
 
-⏳ Time Management Tips:
+⏳ Time & Progress Management Tips:
 ${plan.timeManagementTips.map(item => `- ${item}`).join('\n')}
 
-${plan.toolsToHelp && plan.toolsToHelp.length > 0 ? `🧰 Tools to Help:\n${plan.toolsToHelp.map(item => `- ${item}`).join('\n')}\n` : ''}
-🧭 Weekly Reflection Questions:
-${plan.weeklyReflectionQuestions.map(item => `- ${item}`).join('\n')}
+${plan.toolsToHelp && plan.toolsToHelp.length > 0 ? `🧰 Helpful Tools:\n${plan.toolsToHelp.map(item => `- ${item}`).join('\n')}\n` : ''}
+🧭 Reflection & Review Prompts:
+${plan.reflectionPrompts.map(item => `- ${item}`).join('\n')}
 
-🎯 One-Line Daily Affirmation:
+🎯 Motivational Daily Affirmation:
 ${plan.dailyAffirmation}
     `.trim();
 
