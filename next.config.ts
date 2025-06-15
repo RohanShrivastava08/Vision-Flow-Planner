@@ -34,6 +34,12 @@ const nextConfig: NextConfig = {
         hostname: 'plus.unsplash.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'sdmntprsouthcentralus.oaiusercontent.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
