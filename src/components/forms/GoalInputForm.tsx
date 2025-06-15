@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Sparkles } from 'lucide-react';
+import { Loader2, Lightbulb } from 'lucide-react';
 
 export const goalFormSchema = z.object({
   goal: z.string()
@@ -34,7 +34,7 @@ export default function GoalInputForm({ form, onSubmit, isLoading }: GoalInputFo
               <FormControl>
                 <Textarea
                   id="goal-input"
-                  placeholder="Enter your goal or aspiration in one line (e.g., I want to get fit...)"
+                  placeholder="Write one goal or desire you want to achieve (e.g. I want to wake up early...)"
                   className="min-h-[100px] text-base sm:text-lg resize-none bg-card p-4 shadow-sm focus-visible:ring-primary focus-visible:ring-offset-0"
                   {...field}
                 />
@@ -51,8 +51,8 @@ export default function GoalInputForm({ form, onSubmit, isLoading }: GoalInputFo
             </>
           ) : (
             <>
-              <Sparkles className="mr-2 h-5 w-5" />
-              Generate My Plan
+              <Lightbulb className="mr-2 h-5 w-5" />
+              Create My Detailed Life Plan
             </>
           )}
         </Button>

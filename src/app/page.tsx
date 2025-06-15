@@ -4,7 +4,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from 'lucide-react';
 
@@ -13,15 +12,12 @@ import Footer from '@/components/layout/Footer';
 import GoalInputForm, { goalFormSchema, type GoalFormValues } from '@/components/forms/GoalInputForm';
 import PlanDisplay from '@/components/planner/PlanDisplay';
 
-import { generateVisionStatement } from '@/ai/flows/vision-statement-generation';
-import { generateDailyHabitPlan } from '@/ai/flows/daily-habit-plan-generation';
-import { generateWeeklyReviewQuestions } from '@/ai/flows/weekly-review-questions-generation';
-
-import type { Plan } from '@/types';
+import { generateLifePlan } from '@/ai/flows/life-plan-generation';
+import type { LifePlan } from '@/types';
 
 
 export default function HomePage() {
-  const [plan, setPlan] = useState<Plan | null>(null);
+  const [plan, setPlan] = useState<LifePlan | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
@@ -34,25 +30,15 @@ export default function HomePage() {
 
   async function onSubmit(values: GoalFormValues) {
     setIsLoading(true);
-    setPlan(null); // Clear previous plan
+    setPlan(null); 
     try {
-      // Concurrently fetch all parts of the plan
-      const [visionResult, habitsResult, questionsResult] = await Promise.all([
-        generateVisionStatement({ goal: values.goal }),
-        generateDailyHabitPlan({ goal: values.goal }),
-        generateWeeklyReviewQuestions({ goal: values.goal }),
-      ]);
+      const result = await generateLifePlan({ goal: values.goal });
 
-      // Basic validation, assuming AI flows return according to schema
-      if (!visionResult?.visionStatement || !habitsResult?.habits || !questionsResult?.weeklyReviewQuestions) {
-        throw new Error("Received incomplete data from AI services.");
+      if (!result || !result.threeMonthVision || !result.whatToDoDaily || !result.whatToAvoid || !result.timeManagementTips || !result.weeklyReflectionQuestions || !result.dailyAffirmation) {
+        throw new Error("Received incomplete data from AI service. Please ensure all plan sections are generated.");
       }
       
-      setPlan({
-        visionStatement: visionResult.visionStatement,
-        dailyHabits: habitsResult.habits,
-        weeklyQuestions: questionsResult.weeklyReviewQuestions,
-      });
+      setPlan(result);
 
     } catch (error) {
       console.error("Error generating plan:", error);
@@ -71,20 +57,30 @@ export default function HomePage() {
 
     const planText = `
 📌 3-Month Vision:
-${plan.visionStatement}
+${plan.threeMonthVision}
 
-🔥 Daily Habits:
-${plan.dailyHabits.map(habit => `- ${habit}`).join('\n')}
+🧠 What to Do Daily:
+${plan.whatToDoDaily.map(item => `- ${item}`).join('\n')}
 
-🧠 Weekly Review Questions:
-${plan.weeklyQuestions.map(question => `- ${question}`).join('\n')}
+⛔ What to Avoid:
+${plan.whatToAvoid.map(item => `- ${item}`).join('\n')}
+
+⏳ Time Management Tips:
+${plan.timeManagementTips.map(item => `- ${item}`).join('\n')}
+
+${plan.toolsToHelp && plan.toolsToHelp.length > 0 ? `🧰 Tools to Help:\n${plan.toolsToHelp.map(item => `- ${item}`).join('\n')}\n` : ''}
+🧭 Weekly Reflection Questions:
+${plan.weeklyReflectionQuestions.map(item => `- ${item}`).join('\n')}
+
+🎯 One-Line Daily Affirmation:
+${plan.dailyAffirmation}
     `.trim();
 
     navigator.clipboard.writeText(planText)
       .then(() => {
         toast({
           title: "Plan Copied!",
-          description: "Your personalized plan is now in your clipboard.",
+          description: "Your personalized life plan is now in your clipboard.",
         });
       })
       .catch(err => {
@@ -108,10 +104,10 @@ ${plan.weeklyQuestions.map(question => `- ${question}`).join('\n')}
       <main className="flex-grow container mx-auto px-4 py-8 sm:py-12 flex flex-col items-center">
         <section className="w-full max-w-2xl text-center mb-10 sm:mb-12">
           <h1 className="text-4xl sm:text-5xl font-headline font-bold mb-3 sm:mb-4 text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-foreground/70 dark:to-accent-foreground">
-            VisionFlow
+            One-Liner Life Planner
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8">
-            Turn your one-liner goal into a personalized 3-month AI-powered plan.
+            Turn your one-liner goal into a detailed, AI-powered life plan.
           </p>
           <GoalInputForm form={form} onSubmit={onSubmit} isLoading={isLoading} />
         </section>
@@ -119,7 +115,7 @@ ${plan.weeklyQuestions.map(question => `- ${question}`).join('\n')}
         {isLoading && (
           <div className="flex flex-col items-center justify-center space-y-3 mt-8 text-center">
             <Loader2 className="h-10 w-10 animate-spin text-primary" />
-            <p className="text-lg text-muted-foreground">Crafting your personalized plan... This might take a moment.</p>
+            <p className="text-lg text-muted-foreground">Crafting your personalized life plan... This might take a moment.</p>
           </div>
         )}
 
