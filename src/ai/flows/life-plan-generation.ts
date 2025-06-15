@@ -1,7 +1,7 @@
 
 'use server';
 /**
- * @fileOverview Generates a detailed life plan, an AI image generator prompt for an infographic, and download instructions.
+ * @fileOverview Generates a detailed life plan and an AI image generator prompt for an infographic.
  *
  * - generateLifePlan - A function that handles the life plan generation process.
  * - GenerateLifePlanInput - The input type for the generateLifePlan function.
@@ -27,7 +27,6 @@ const GenerateLifePlanOutputSchema = z.object({
   reflectionPrompts: z.array(z.string()).describe("The content for reflection prompts. For short-term: daily/every-other-day quick checks. For long-term: weekly and monthly prompts."),
   dailyAffirmation: z.string().describe("The content for the daily affirmation. A short, clear, positive one-line daily affirmation, customized."),
   infographicPrompt: z.string().describe("A detailed prompt for an AI image generator (like DALL·E, Midjourney) to create a clean, colorful infographic-style flowchart of the life plan."),
-  downloadInstructions: z.string().describe("A short note explaining how to integrate an export/download feature for the generated infographic (e.g., using libraries like html-to-image if rendering HTML, or handling direct image API responses)."),
 });
 export type GenerateLifePlanOutput = z.infer<typeof GenerateLifePlanOutputSchema>;
 
@@ -46,10 +45,9 @@ const prompt = ai.definePrompt({
 User Goal: {{{goal}}}
 {{#if timeframe}}User Timeframe: {{{timeframe}}}{{/if}}
 
-Your task is to generate three things:
+Your task is to generate two things:
 1.  A detailed, beginner-friendly life plan text.
 2.  A detailed prompt for an AI image generator to create an infographic of the plan.
-3.  A short note on how to integrate download functionality for such an infographic.
 
 You MUST determine the timeframe to use (either the user's input or '3 months' default) and state this timeframe in the 'timeframeUsed' output field for the life plan text.
 
@@ -100,12 +98,6 @@ Generate a detailed prompt for an AI image generator (like DALL·E, Midjourney, 
 - Overall Style: Professional but warm and inviting, resembling a coaching worksheet or a motivational poster. Avoid overly complex details. The infographic should be visually appealing and easy to understand at a glance.
 
 ---
-
-PART 3: DOWNLOAD INSTRUCTIONS (for the 'downloadInstructions' field)
-Provide a short note (2-3 sentences) for a developer on how to integrate an export/download feature for such a generated infographic image. Mention common approaches.
-Example: "To make the infographic downloadable, if it's generated and displayed as an HTML element, a library like 'html-to-image' can convert the DOM to a PNG/JPG. If using an image generation API that returns an image URL or Base64 data, provide a download link or button that triggers a browser download of the image file."
-
----
 Replace {{timeframeUsed_placeholder}} in the Vision Statement header with the actual 'timeframeUsed' value.
 Ensure all output fields defined in the schema are populated correctly.
 `,
@@ -122,5 +114,3 @@ const lifePlanFlow = ai.defineFlow(
     return output!;
   }
 );
-
-    
