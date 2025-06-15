@@ -74,11 +74,10 @@ export default function DemoSection() {
             <div className="ml-9">
               <div className="relative w-full aspect-[3/2] rounded-md overflow-hidden border border-border shadow-sm mb-2">
                 <Image
-                  src="https://placehold.co/600x400.png"
-                  alt="Sample Infographic Preview"
+                  src="https://source.unsplash.com/600x400/?python,code,programming"
+                  alt="Sample Python Infographic Preview"
                   layout="fill"
                   objectFit="cover"
-                  data-ai-hint="plan infographic example"
                 />
               </div>
               <p className="text-xs text-card-foreground/70">
