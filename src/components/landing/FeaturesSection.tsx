@@ -11,7 +11,7 @@ interface FeatureItemProps {
 }
 
 const FeatureItem: React.FC<FeatureItemProps> = ({ icon: Icon, title, description }) => (
-  <Card className="text-center p-6 bg-card hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+  <Card className="text-center p-6 bg-card hover:shadow-lg transition-shadow duration-300 h-full flex flex-col rounded-lg border-border">
     <div className="mb-4 text-primary flex justify-center">
       <Icon className="h-10 w-10" />
     </div>
@@ -40,7 +40,7 @@ export default function FeaturesSection() {
     {
       icon: Download,
       title: "Easy Export Options",
-      description: "Download your full textual plan or the generated infographic as a PNG image to keep or share.",
+      description: "Download your full textual plan as an image or the generated infographic to keep or share.",
     },
     {
       icon: Copy,

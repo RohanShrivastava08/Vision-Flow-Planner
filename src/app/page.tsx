@@ -14,6 +14,8 @@ import GoalInputForm, { goalFormSchema, type GoalFormValues } from '@/components
 import PlanDisplay from '@/components/planner/PlanDisplay';
 import FeaturesSection from '@/components/landing/FeaturesSection';
 import DemoSection from '@/components/landing/DemoSection';
+import HowItWorksSection from '@/components/landing/HowItWorksSection';
+import TestimonialsSection from '@/components/landing/TestimonialsSection';
 import FaqSection from '@/components/landing/FaqSection';
 import { Separator } from '@/components/ui/separator';
 
@@ -163,7 +165,11 @@ ${plan.infographicPrompt}
 
             <DemoSection />
             <Separator className="my-12 sm:my-16" />
+            <HowItWorksSection />
+            <Separator className="my-12 sm:my-16" />
             <FeaturesSection />
+            <Separator className="my-12 sm:my-16" />
+            <TestimonialsSection />
             <Separator className="my-12 sm:my-16" />
             <FaqSection />
           </>
