@@ -12,17 +12,17 @@ interface Step {
 
 const steps: Step[] = [
   {
-    icon: Lightbulb, // Changed from Target for "Define" step
+    icon: Lightbulb, 
     title: "1. Share Your Vision",
     description: "Start with your one-line goal. What dream or aspiration do you want to bring to life?",
   },
   {
-    icon: BrainCircuit, // Combines Brain and Wand2 ideas
+    icon: BrainCircuit, 
     title: "2. Get Your AI Plan",
     description: "Our AI crafts a personalized, step-by-step life plan and a prompt for your visual infographic.",
   },
   {
-    icon: TrendingUp, // Changed from CheckCircle for more dynamic feel
+    icon: TrendingUp, 
     title: "3. Visualize & Achieve",
     description: "Use your detailed text plan and the AI-generated infographic to stay on track and make consistent progress.",
   },
@@ -41,7 +41,11 @@ export default function HowItWorksSection() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
         {steps.map((step, index) => (
-          <Card key={index} className="text-center bg-card hover:shadow-lg transition-shadow duration-300 flex flex-col rounded-lg border-border p-2">
+          <Card 
+            key={index} 
+            className="text-center bg-card hover:shadow-lg transition-all duration-300 flex flex-col rounded-lg border-border p-2 animate-in fade-in-0 zoom-in-95"
+            style={{ animationDelay: `${index * 100 + 100}ms` }}
+          >
             <CardHeader className="items-center pb-3 pt-5">
               <div className="p-3 rounded-full bg-primary/10 text-primary mb-4 inline-block">
                 <step.icon className="h-8 w-8" />

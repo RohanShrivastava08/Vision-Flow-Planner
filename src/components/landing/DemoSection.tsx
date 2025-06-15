@@ -25,7 +25,7 @@ export default function DemoSection() {
         </p>
       </div>
 
-      <Card className="shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card border-border overflow-hidden">
+      <Card className="shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card border-border overflow-hidden animate-in fade-in-0 zoom-in-95 delay-100">
         <CardHeader className="bg-muted/50 p-6">
           <div className="flex items-center space-x-3 mb-2">
             <Lightbulb className="h-7 w-7 text-primary" />

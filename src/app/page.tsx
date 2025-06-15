@@ -150,7 +150,7 @@ ${plan.infographicPrompt}
         
         {!plan && (
           <>
-            <section className="w-full max-w-3xl text-center mb-10 sm:mb-16">
+            <section className="w-full max-w-3xl text-center mb-10 sm:mb-16 animate-in fade-in-0 slide-in-from-top-10 duration-700">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-headline font-bold mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-foreground/80 dark:to-accent">
                 Vision Flow
               </h1>
@@ -163,20 +163,22 @@ ${plan.infographicPrompt}
               </div>
             </section>
 
-            <DemoSection />
-            <Separator className="my-12 sm:my-16" />
-            <HowItWorksSection />
-            <Separator className="my-12 sm:my-16" />
-            <FeaturesSection />
-            <Separator className="my-12 sm:my-16" />
-            <TestimonialsSection />
-            <Separator className="my-12 sm:my-16" />
-            <FaqSection />
+            <div className="w-full space-y-12 sm:space-y-16 animate-in fade-in-0 delay-300 duration-700">
+              <DemoSection />
+              <Separator className="my-12 sm:my-16" />
+              <HowItWorksSection />
+              <Separator className="my-12 sm:my-16" />
+              <FeaturesSection />
+              <Separator className="my-12 sm:my-16" />
+              <TestimonialsSection />
+              <Separator className="my-12 sm:my-16" />
+              <FaqSection />
+            </div>
           </>
         )}
 
         {(isLoadingTextPlan || (!plan && isGeneratingInfographic)) && (
-          <div className="flex flex-col items-center justify-center space-y-3 mt-8 text-center">
+          <div className="flex flex-col items-center justify-center space-y-3 mt-8 text-center animate-in fade-in duration-300">
             <Loader2 className="h-10 w-10 animate-spin text-primary" />
             <p className="text-lg text-muted-foreground">
               {isLoadingTextPlan ? "Crafting your personalized life plan..." : "Generating your infographic..."}

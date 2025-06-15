@@ -6,12 +6,16 @@ interface PlanSectionProps {
   title: string;
   icon: LucideIcon;
   content: string | string[];
-  iconClassName?: string; 
+  iconClassName?: string;
+  delay?: number; // Optional delay for staggered animation
 }
 
-export default function PlanSection({ title, icon: Icon, content, iconClassName = "text-primary" }: PlanSectionProps) {
+export default function PlanSection({ title, icon: Icon, content, iconClassName = "text-primary", delay = 0 }: PlanSectionProps) {
   return (
-    <Card className="w-full shadow-lg bg-card border-border transition-all duration-300 hover:shadow-xl">
+    <Card 
+      className="w-full shadow-lg bg-card border-border transition-all duration-300 hover:shadow-xl animate-in fade-in-0"
+      style={{ animationDelay: `${delay}ms` }}
+    >
       <CardHeader className="flex flex-row items-center space-x-4 pb-3 pt-5 px-5">
         <Icon className={`h-7 w-7 sm:h-8 sm:w-8 ${iconClassName} shrink-0`} aria-hidden="true" />
         <CardTitle className="text-xl sm:text-2xl font-headline text-card-foreground">{title}</CardTitle>

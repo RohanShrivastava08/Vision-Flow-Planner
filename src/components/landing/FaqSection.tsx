@@ -49,7 +49,12 @@ export default function FaqSection() {
       </div>
       <Accordion type="single" collapsible className="w-full">
         {faqData.map((item, index) => (
-          <AccordionItem value={`item-${index + 1}`} key={index} className="border-border bg-card shadow-sm hover:shadow-md transition-shadow rounded-md mb-3">
+          <AccordionItem 
+            value={`item-${index + 1}`} 
+            key={index} 
+            className="border-border bg-card shadow-sm hover:shadow-md transition-shadow rounded-md mb-3 animate-in fade-in-0 zoom-in-95"
+            style={{ animationDelay: `${index * 100 + 100}ms` }}
+          >
             <AccordionTrigger className="p-4 sm:p-6 text-left font-medium text-card-foreground hover:no-underline text-base sm:text-lg">
               {item.question}
             </AccordionTrigger>

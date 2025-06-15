@@ -7,7 +7,7 @@ import { Star } from "lucide-react";
 
 interface Testimonial {
   name: string;
-  role?: string; // Optional role or title
+  role?: string; 
   avatarSrc: string;
   avatarHint: string;
   review: string;
@@ -67,7 +67,11 @@ export default function TestimonialsSection() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {testimonialsData.map((testimonial, index) => (
-          <Card key={index} className="bg-card shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col rounded-lg border-border">
+          <Card 
+            key={index} 
+            className="bg-card shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col rounded-lg border-border animate-in fade-in-0 zoom-in-95"
+            style={{ animationDelay: `${index * 100 + 100}ms` }}
+          >
             <CardHeader className="flex flex-row items-center gap-4 pb-3 pt-5 px-5">
               <Avatar className="h-12 w-12 border-2 border-primary/30">
                 <AvatarImage src={testimonial.avatarSrc} alt={testimonial.name} data-ai-hint={testimonial.avatarHint} />

@@ -63,15 +63,12 @@ export default function PlanDisplay({ plan, onCopy, onStartOver, generatedInfogr
       return;
     }
     try {
-      // Ensure fonts are loaded and stylesheets are processed.
-      // This is crucial for html-to-image to correctly render text.
       await document.fonts.ready;
 
-      // Determine background color based on theme
       const isDarkMode = document.documentElement.classList.contains('dark');
-      // Light theme --background: hsl(40, 50%, 97%) -> #f7f5f2
-      // Dark theme --background: hsl(220, 15%, 10%) -> #171b21
-      const bgColor = isDarkMode ? '#171b21' : '#f7f5f2';
+      // Light: hsl(30, 60%, 97%) -> #fcfaf7
+      // Dark: hsl(220, 20%, 10%) -> #14171f
+      const bgColor = isDarkMode ? '#14171f' : '#fcfaf7';
 
       const dataUrl = await toPng(planToSaveRef.current, {
         cacheBust: true, 
@@ -115,24 +112,28 @@ export default function PlanDisplay({ plan, onCopy, onStartOver, generatedInfogr
         icon={Target}
         content={plan.visionStatement}
         iconClassName="text-primary"
+        delay={100}
       />
       <PlanSection
         title="✅ Daily or Monthly Action Plan"
         icon={ListChecks}
         content={plan.actionPlan}
         iconClassName="text-primary"
+        delay={200}
       />
       <PlanSection
         title="⛔ What to Avoid"
         icon={Ban}
         content={plan.whatToAvoid}
         iconClassName="text-destructive"
+        delay={300}
       />
       <PlanSection
         title="⏳ Time & Progress Management Tips"
         icon={Clock}
         content={plan.timeManagementTips}
         iconClassName="text-primary"
+        delay={400}
       />
       {plan.toolsToHelp && plan.toolsToHelp.length > 0 && (
         <PlanSection
@@ -140,6 +141,7 @@ export default function PlanDisplay({ plan, onCopy, onStartOver, generatedInfogr
           icon={Wrench}
           content={plan.toolsToHelp}
           iconClassName="text-accent-foreground dark:text-accent"
+          delay={500}
         />
       )}
       <PlanSection
@@ -147,15 +149,17 @@ export default function PlanDisplay({ plan, onCopy, onStartOver, generatedInfogr
         icon={HelpCircle}
         content={plan.reflectionPrompts}
         iconClassName="text-primary"
+        delay={600}
       />
       <PlanSection
         title="🎯 Motivational Daily Affirmation"
         icon={Sparkle}
         content={plan.dailyAffirmation}
         iconClassName="text-primary"
+        delay={700}
       />
 
-      <Card className="w-full shadow-lg bg-card border-border transition-all duration-300 hover:shadow-xl relative">
+      <Card className="w-full shadow-lg bg-card border-border transition-all duration-300 hover:shadow-xl relative animate-in fade-in-0 delay-[800ms] duration-500">
         <CardHeader className="flex flex-row items-center justify-between space-x-4 pb-3 pt-5 px-5">
           <div className="flex items-center space-x-4">
             <ImageIcon className="h-7 w-7 sm:h-8 sm:w-8 text-primary shrink-0" aria-hidden="true" />
@@ -198,10 +202,11 @@ export default function PlanDisplay({ plan, onCopy, onStartOver, generatedInfogr
           title="🖼️ AI Infographic Prompt (for reference)"
           icon={ImageIcon}
           content={plan.infographicPrompt}
-          iconClassName="text-primary opacity-70" 
+          iconClassName="text-primary opacity-70"
+          delay={900}
         />
 
-      <div className="flex flex-col sm:flex-row gap-4 pt-4">
+      <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-in fade-in-0 delay-[1000ms] duration-500">
         <Button onClick={onCopy} className="flex-1 text-base py-3 shadow-md hover:shadow-lg transition-shadow">
           <Copy className="mr-2 h-5 w-5" />
           Copy Plan Text

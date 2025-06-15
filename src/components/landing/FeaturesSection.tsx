@@ -8,10 +8,14 @@ interface FeatureItemProps {
   icon: React.ElementType;
   title: string;
   description: string;
+  delay: number;
 }
 
-const FeatureItem: React.FC<FeatureItemProps> = ({ icon: Icon, title, description }) => (
-  <Card className="text-center p-6 bg-card hover:shadow-lg transition-shadow duration-300 h-full flex flex-col rounded-lg border-border">
+const FeatureItem: React.FC<FeatureItemProps> = ({ icon: Icon, title, description, delay }) => (
+  <Card 
+    className="text-center p-6 bg-card hover:shadow-xl transition-all duration-300 h-full flex flex-col rounded-lg border-border animate-in fade-in-0 zoom-in-95"
+    style={{ animationDelay: `${delay}ms` }}
+  >
     <div className="mb-4 text-primary flex justify-center">
       <Icon className="h-10 w-10" />
     </div>
@@ -65,8 +69,8 @@ export default function FeaturesSection() {
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {features.map((feature) => (
-          <FeatureItem key={feature.title} {...feature} />
+        {features.map((feature, index) => (
+          <FeatureItem key={feature.title} {...feature} delay={index * 100 + 100} />
         ))}
       </div>
     </section>
