@@ -74,8 +74,8 @@ export default function DemoSection() {
             <div className="ml-9">
               <div className="relative w-full aspect-[3/2] rounded-md overflow-hidden border border-border shadow-sm mb-2">
                 <Image
-                  src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=60"
-                  alt="Sample Infographic for Python Programming Goal - Laptop with code"
+                  src="/images/demo-infographic.png" 
+                  alt="Sample Infographic for a Life Plan - Flowchart Style"
                   layout="fill"
                   objectFit="cover"
                 />
