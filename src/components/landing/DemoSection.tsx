@@ -75,10 +75,11 @@ export default function DemoSection() {
             <div className="ml-9">
               <div className="relative w-full aspect-[3/2] rounded-md overflow-hidden border border-border shadow-sm mb-2">
                 <Image
-                  src="https://files.oaiusercontent.com/file-2DZQA47H6hwtzEhuaWYo4h?se=2025-06-16T04%3A52%3A34Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D299%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Dbb9c0893-0d52-4eed-af91-0afbcb622427.png&sig=2Ygrf3Oe6XvqRBuJYUpBjQIhOrlr6E999iifWp4r/Ss%3D"
-                  alt="Sample Vision Flow Infographic of a Life Plan"
+                  src="https://placehold.co/600x400.png"
+                  alt="Sample Vision Flow Infographic Preview"
                   layout="fill"
                   objectFit="cover"
+                  data-ai-hint="life plan infographic"
                 />
               </div>
               <p className="text-xs text-card-foreground/70">
