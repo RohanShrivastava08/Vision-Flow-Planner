@@ -74,9 +74,9 @@ export default function DemoSection() {
             <div className="ml-9">
               <div className="relative w-full aspect-[3/2] rounded-md overflow-hidden border border-border shadow-sm mb-2">
                 <Image
-                  src="/images/demo-infographic.png" 
-                  alt="Sample Infographic for a Life Plan - Flowchart Style"
-                  layout="fill"
+                  src="/images/useit.png" 
+                  alt="Sample demo infographic"
+                  fill={true}
                   objectFit="cover"
                 />
               </div>
