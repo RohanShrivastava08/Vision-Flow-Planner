@@ -1,4 +1,3 @@
-
 // src/components/landing/DemoSection.tsx
 'use client';
 
