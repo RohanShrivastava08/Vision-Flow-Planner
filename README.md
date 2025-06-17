@@ -4,6 +4,10 @@
 
 <img width="1470" alt="Image" src="https://github.com/user-attachments/assets/9344553b-f0a7-47ae-8668-cacc35029e7c" />
 
+<img width="1470" alt="Image" src="https://github.com/user-attachments/assets/b994745f-2bac-438e-9a61-c44d7e31b157" />
+
+<img width="1470" alt="Image" src="https://github.com/user-attachments/assets/4f6ee395-0803-45c2-86e8-b3209c404432" />
+
 
 - A transformative AI-powered web application that converts your single-line life goals into actionable, structured, and visual life plans.
 
