@@ -180,11 +180,29 @@ Life Plan Generator	life-plan-generation.ts	Goal input	Full textual roadmap with
 Infographic Generator	image-generation-flow.ts	Infographic prompt	Visual image (URI) summarizing plan
 
 
-
-
-
 ## 📸 Screenshots
 
+<img width="1470" alt="Image" src="https://github.com/user-attachments/assets/f19b9bd2-6222-42b4-b680-cea5c836164f" />
+
+<img width="1470" alt="Image" src="https://github.com/user-attachments/assets/9344553b-f0a7-47ae-8668-cacc35029e7c" />
+
+<img width="1470" alt="Image" src="https://github.com/user-attachments/assets/fd75d597-424b-4466-8e92-f8a5fd97e70c" />
+
+<img width="1470" alt="Image" src="https://github.com/user-attachments/assets/0c800775-3476-428b-a4d3-6881633f5648" />
+
+<img width="1470" alt="Image" src="https://github.com/user-attachments/assets/60cadc0b-da1f-43dd-ae6c-ea579af1ea13" />
+
+<img width="1470" alt="Image" src="https://github.com/user-attachments/assets/39218e9f-85d0-42db-95c7-d60d025c05f8" />
+
+<img width="1470" alt="Image" src="https://github.com/user-attachments/assets/8c7f7000-ac3a-48e8-a6cd-93745c3116cd" />
+
+<img width="1470" alt="Image" src="https://github.com/user-attachments/assets/9c6a2ce9-4a0b-4641-9603-196ecaad0f2c" />
+
+<img width="1470" alt="Image" src="https://github.com/user-attachments/assets/8d8f9236-9fc0-4e14-8712-c034b0e3e970" />
+
+<img width="1470" alt="Image" src="https://github.com/user-attachments/assets/b994745f-2bac-438e-9a61-c44d7e31b157" />
+
+<img width="1470" alt="Image" src="https://github.com/user-attachments/assets/4f6ee395-0803-45c2-86e8-b3209c404432" />
 
 
 ## 🤝 Contributing
