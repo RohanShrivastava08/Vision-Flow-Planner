@@ -1,5 +1,11 @@
 # 🌟 VisionFlow – AI-Powered Life Planner & Infographic Generator
 
+- A transformative AI-powered web application that converts your single-line life goals into actionable, structured, and visual life plans.
+
+- VisionFlow generates personalized vision statements, daily or monthly action plans, motivational affirmations, and infographic visuals—helping you gain clarity and consistency in achieving your dreams.
+
+- Built using Firebase Studio, Next.js 15, React 18, TypeScript, Tailwind CSS, ShadCN UI, and Genkit (powered by Google Gemini).
+
 <img width="1470" alt="Image" src="https://github.com/user-attachments/assets/f19b9bd2-6222-42b4-b680-cea5c836164f" />
 
 <img width="1470" alt="Image" src="https://github.com/user-attachments/assets/9344553b-f0a7-47ae-8668-cacc35029e7c" />
@@ -7,13 +13,6 @@
 <img width="1470" alt="Image" src="https://github.com/user-attachments/assets/b994745f-2bac-438e-9a61-c44d7e31b157" />
 
 <img width="1470" alt="Image" src="https://github.com/user-attachments/assets/4f6ee395-0803-45c2-86e8-b3209c404432" />
-
-
-- A transformative AI-powered web application that converts your single-line life goals into actionable, structured, and visual life plans.
-
-- VisionFlow generates personalized vision statements, daily or monthly action plans, motivational affirmations, and infographic visuals—helping you gain clarity and consistency in achieving your dreams.
-
-- Built using Firebase Studio, Next.js 15, React 18, TypeScript, Tailwind CSS, ShadCN UI, and Genkit (powered by Google Gemini).
 
 
 ## 📋 Table of Contents
